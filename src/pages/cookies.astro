@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/organisms/Footer.astro';
+import Breadcrumbs from '../components/molecules/Breadcrumbs.astro';
+import { Icon } from 'astro-icon/components';
+import PageHeader from '../components/molecules/PageHeader.astro';
+
+const title = "Cookies - SEO Halle";
+const description = "Unsere Website verzichtet bewusst auf Cookies und tracking-basierte Technologien. Erfahren Sie mehr über unseren Privacy-by-Design Ansatz.";
+const keywords = [
+  'Cookies',
+  'Cookie Policy',
+  'Privacy by Design',
+  'Trackingfrei'
+];
+
+const features = [
+  {
+    title: 'Privacy by Design',
+    description: 'Unsere Website wurde von Grund auf mit dem Fokus auf Datenschutz entwickelt.',
+    icon: 'heroicons:shield-check'
+  },
+  {
+    title: 'Privacy by Default',
+    description: 'Standardmäßig werden keine personenbezogenen Daten erhoben oder gespeichert.',
+    icon: 'heroicons:lock-closed'
+  },
+  {
+    title: 'Keine Tracking-Cookies',
+    description: 'Wir verzichten bewusst auf Tracking und Analyse-Tools.',
+    icon: 'heroicons:no-symbol'
+  }
+];
+
+const benefits = [
+  {
+    title: 'Maximale Performance',
+    description: 'Durch den Verzicht auf Tracking-Skripte und Cookies lädt unsere Website schneller.',
+    icon: 'heroicons:rocket-launch'
+  },
+  {
+    title: 'Volle Kontrolle',
+    description: 'Sie müssen keine Cookie-Banner wegklicken oder Einstellungen vornehmen.',
+    icon: 'heroicons:adjustments-horizontal'
+  },
+  {
+    title: 'DSGVO-konform',
+    description: 'Unsere Website erfüllt höchste Datenschutzstandards.',
+    icon: 'heroicons:document-check'
+  }
+];
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  
+  <main id="main" tabindex="-1" class="pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <div class="container">
+      <Breadcrumbs items={[
+        { name: 'Startseite', href: '/' },
+        { name: 'Cookies', href: '/cookies/' },
+      ]} />
+      <!-- Page Header -->
+      <PageHeader 
+        badge="Privacy First" 
+        title="Cookie-frei und datenschutzfreundlich"
+        description='Wir haben uns bewusst gegen die Verwendung von Cookies entschieden. Unsere Website wurde nach den Prinzipien "Privacy by Design" und "Privacy by Default" entwickelt.'
+      />
+
+      <!-- Main Features -->
+      <div class="grid md:grid-cols-3 gap-8 mb-16">
+        {features.map(feature => (
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="p-3 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+                <Icon name={feature.icon} class="w-8 h-8 text-primary-600 dark:text-primary-400" />
+              </div>
+              <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{feature.title}</h2>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Technical Explanation -->
+      <div class="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 md:p-12 mb-16">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            Technischer Hintergrund
+          </h2>
+          <div class="prose prose-lg dark:prose-invert">
+            <p>
+              Unsere Website wurde mit modernsten Technologien entwickelt, die keine Cookies benötigen:
+            </p>
+            <ul>
+              <li>Statisches Rendering für maximale Performance</li>
+              <li>Lokale Speicherung von Einstellungen (z.B. Dark Mode) ohne Cookies</li>
+              <li>Keine externen Marketing- oder Tracking-Skripte</li>
+              <li>Keine Werbenetzwerke oder Social Media Tracker</li>
+            </ul>
+            <p>
+              Durch diese Architektur können wir Ihnen eine schnelle, sichere und datenschutzfreundliche 
+              Website bieten, ohne Kompromisse bei der Funktionalität einzugehen.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="grid md:grid-cols-3 gap-8 mb-16">
+        {benefits.map(benefit => (
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm">
+            <div class="flex items-center gap-4 mb-4">
+              <Icon name={benefit.icon} class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{benefit.title}</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Contact Section -->
+      <div class="text-center">
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+          Haben Sie Fragen zu unserem Datenschutzkonzept? Kontaktieren Sie uns!
+        </p>
+        <a 
+          href="/kontakt/" 
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+        >
+          Kontakt aufnehmen
+          <Icon name="heroicons:arrow-right" class="ml-2 -mr-1 h-5 w-5" />
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

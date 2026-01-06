@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/organisms/Footer.astro';
+import Breadcrumbs from '../components/molecules/Breadcrumbs.astro';
+import { Icon } from 'astro-icon/components';
+
+const title = "Über uns - SEO Halle";
+const description = "Lernen Sie die SEO-Agentur Halle kennen. Über 18 Jahre Erfahrung in der Suchmaschinenoptimierung und digitalen Marketingstrategien.";
+const keywords = [
+  'Über uns',
+  'SEO Agentur Halle',
+  'SEO Team Halle',
+  'SEO Erfahrung Halle'
+];
+
+const milestones = [
+  {
+    year: '2007',
+    title: 'Gründung',
+    description: 'Start als freiberuflicher SEO-Berater in Halle'
+  },
+  {
+    year: '2010',
+    title: 'Agenturaufbau',
+    description: 'Erweiterung zum Full-Service SEO-Dienstleister'
+  },
+  {
+    year: '2015',
+    title: 'Expansion',
+    description: 'Spezialisierung auf technisches SEO und Content-Marketing'
+  },
+  {
+    year: '2020',
+    title: 'Innovation',
+    description: 'Integration von KI und Machine Learning in SEO-Strategien'
+  }
+];
+
+const team = [
+  {
+    name: 'Arnold Wender',
+    role: 'Gründer & SEO-Experte',
+    description: 'Über 18 Jahre Erfahrung in der Suchmaschinenoptimierung',
+    expertise: ['Technisches SEO', 'Strategieentwicklung', 'SEO-Consulting']
+  }
+];
+
+const values = [
+  {
+    title: 'Transparenz',
+    description: 'Offene Kommunikation und nachvollziehbare Prozesse',
+    icon: 'heroicons:eye'
+  },
+  {
+    title: 'Innovation',
+    description: 'Stets auf dem neuesten Stand der SEO-Entwicklung',
+    icon: 'heroicons:light-bulb'
+  },
+  {
+    title: 'Qualität',
+    description: 'Höchste Standards und messbare Ergebnisse',
+    icon: 'heroicons:star'
+  },
+  {
+    title: 'Nachhaltigkeit',
+    description: 'Langfristige Strategien statt kurzfristiger Erfolge',
+    icon: 'heroicons:arrow-trending-up'
+  }
+];
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  
+  <main class="pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <div class="container">
+      <Breadcrumbs items={[
+        { name: 'Startseite', href: '/' },
+        { name: 'Über uns', href: '/ueber-uns/' },
+      ]} />
+      <!-- Hero Section -->
+      <header class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300 mb-4">
+          Über uns
+        </div>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-6">
+          Ihre SEO-Agentur in Halle seit 2007
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Mit über 18 Jahren Erfahrung sind wir Ihr verlässlicher Partner für professionelle Suchmaschinenoptimierung und digitales Marketing.
+        </p>
+      </header>
+
+      <!-- Main Content -->
+      <div class="max-w-7xl mx-auto">
+        <!-- Introduction -->
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+              Unsere Geschichte
+            </h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-6">
+              Seit der Gründung im Jahr 2007 hat sich SEO-Halle zu einer etablierten SEO-Agentur in Sachsen-Anhalt entwickelt. Was als Ein-Mann-Unternehmen begann, ist heute ein verlässlicher Partner für Unternehmen jeder Größe.
+            </p>
+            <p class="text-gray-600 dark:text-gray-300">
+              Unser Fokus liegt auf der Entwicklung nachhaltiger SEO-Strategien, die messbare Ergebnisse liefern und unseren Kunden einen echten Mehrwert bieten.
+            </p>
+          </div>
+          <div>
+            <img
+              src="https://www.wendermedia.com/wp-content/uploads/2023/11/seo-suchmaschinenoptimierung.jpg"
+              alt="SEO-Experten bei der Strategieentwicklung und Websiteoptimierung"
+              title="Professionelle SEO-Beratung bei SEO Halle"
+              class="rounded-xl shadow-lg"
+              width="400"
+              height="267"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Milestones -->
+        <div class="mb-24">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white text-center mb-12">
+            Unsere Meilensteine
+          </h2>
+          <div class="grid md:grid-cols-4 gap-8">
+            {milestones.map(milestone => (
+              <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300">
+                <div class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-2">
+                  {milestone.year}
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  {milestone.title}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  {milestone.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Team -->
+        <div class="mb-24">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white text-center mb-12">
+            Unser Team
+          </h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            {team.map(member => (
+              <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm">
+                <div class="flex items-center gap-6 mb-6">
+                  <div class="w-20 h-20 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
+                    <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">
+                      {member.name.charAt(0)}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                      {member.name}
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">{member.role}</p>
+                  </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                  {member.description}
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  {member.expertise.map(skill => (
+                    <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 rounded-full text-sm">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Values -->
+        <div class="mb-24">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white text-center mb-12">
+            Unsere Werte
+          </h2>
+          <div class="grid md:grid-cols-4 gap-8">
+            {values.map(value => (
+              <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm text-center">
+                <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Icon name={value.icon} class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  {value.title}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  {value.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+          <a href="/kontakt/" class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+            Kontaktieren Sie uns
+            <Icon name="heroicons:arrow-right" class="ml-2 -mr-1 h-5 w-5" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

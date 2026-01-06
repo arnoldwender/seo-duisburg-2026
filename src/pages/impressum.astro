@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/organisms/Footer.astro';
+import Breadcrumbs from '../components/molecules/Breadcrumbs.astro';
+import PageHeader from '../components/molecules/PageHeader.astro';
+
+const title = "Impressum - SEO Halle";
+const description = "Impressum der SEO-Agentur Halle. Hier finden Sie alle rechtlich relevanten Informationen zu unserem Unternehmen.";
+const keywords = [
+  'Impressum',
+  'Anbieterkennzeichnung',
+  'SEO Halle Impressum',
+  'Rechtliche Angaben'
+];
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  <main id="main" tabindex="-1" class="pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <div class="container">
+      <Breadcrumbs items={[
+        { name: 'Startseite', href: '/' },
+        { name: 'Impressum', href: '/impressum/' },
+      ]} />
+
+      <PageHeader badge="Rechtliches" title="Impressum" description="Anbieterkennzeichnung und gesetzlich erforderliche Angaben gemäß § 5 TMG." />
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm">
+          <div class="prose prose-lg max-w-none dark:prose-invert">
+              <h2>Impressum und andere Angaben</h2>
+<p>Arnold Wender<br />
+SEO Agentur SEO-Halle<br />
+Franckestra&szlig;e 3a<br />
+06110 Halle</p>
+
+<h2>Kontakt</h2>
+<p>Telefon: 034568676857<br />
+E-Mail: mail@seo-halle.de</p>
+
+<h2>Umsatzsteuer-ID</h2>
+<p>Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; &sect; 27 a Umsatzsteuergesetz:<br />
+DE-253389445</p>
+
+<h2>EU-Streitschlichtung</h2>
+<p>Die Europ&auml;ische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>.<br /> Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+
+<h2>Verbraucher&shy;streit&shy;beilegung/Universal&shy;schlichtungs&shy;stelle</h2>
+<p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+<h2>Zentrale Kontaktstelle nach dem Digital Services Act - DSA (Verordnung (EU) 2022/265)</h2>
+<p>Unsere zentrale Kontaktstelle f&uuml;r Nutzer und Beh&ouml;rden nach Art. 11, 12 DSA erreichen Sie wie folgt:</p>
+<p>E-Mail: mail@seo-halle.de<br />
+Telefon: 0345-6867-6859
+</p>
+<p>Die für den Kontakt zur Verf&uuml;gung stehenden Sprachen sind: Deutsch, Spanisch und Englisch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

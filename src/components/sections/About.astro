@@ -1,0 +1,48 @@
+---
+const stats = [
+  { value: '18+', label: 'Jahre Erfahrung' },
+  { value: 'Seit 2007', label: 'Im SEO aktiv' },
+  { value: 'Individuell', label: 'Strategie & Betreuung' },
+  { value: 'Kontinuierlich', label: 'Monitoring & Pflege' },
+];
+---
+
+<section id="ueber-uns" class="py-24 bg-white dark:bg-gray-800" aria-labelledby="about-title">
+  <div class="container">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <article>
+        <h2 id="about-title" class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-6">
+          Ihre SEO-Agentur in Halle (Saale)
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+          Als erfahrene SEO-Agentur in Halle bieten wir Ihnen maßgeschneiderte Lösungen für Ihre Online-Präsenz. Unser Expertenteam entwickelt individuelle Strategien, die Ihr Unternehmen nachhaltig nach vorne bringen.
+        </p>
+        <dl class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {
+            stats.map(({ value, label }) => (
+              <div>
+                <dt class="text-4xl font-bold text-primary-600 dark:text-primary-400">{value}</dt>
+                <dd class="text-sm text-gray-600 dark:text-gray-300">{label}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </article>
+      <figure class="relative">
+        <img
+          src="https://www.wendermedia.com/wp-content/uploads/2023/11/seo-suchmaschinenoptimierung.jpg"
+          alt="SEO Team Meeting"
+          class="rounded-xl shadow-lg"
+          width="600"
+          height="400"
+          loading="lazy"
+          decoding="async"
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          srcset="
+            https://www.wendermedia.com/wp-content/uploads/2023/11/seo-suchmaschinenoptimierung-400.jpg 400w,
+            https://www.wendermedia.com/wp-content/uploads/2023/11/seo-suchmaschinenoptimierung.jpg 600w"
+        />
+      </figure>
+    </div>
+  </div>
+</section>

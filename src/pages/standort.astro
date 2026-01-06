@@ -1,0 +1,144 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/organisms/Footer.astro';
+import Breadcrumbs from '../components/molecules/Breadcrumbs.astro';
+import ConsentBanner from '../components/molecules/ConsentBanner.astro';
+import { Icon } from 'astro-icon/components';
+
+const title = "Standort - SEO Halle";
+const description = "Besuchen Sie uns in Halle (Saale). Zentral gelegen in der Franckestraße 3a, 06110 Halle (Saale).";
+const keywords = [
+  'Standort Halle',
+  'Adresse SEO Halle',
+  'Anfahrt SEO Halle',
+  'Franckestraße 3a Halle'
+];
+
+const location = {
+  address: {
+  street: 'Franckestraße 3a',
+    city: '06110 Halle (Saale)',
+    country: 'Deutschland'
+  },
+  contact: {
+    phone: '0151-4193-2856',
+    email: 'info@seo-halle.de'
+  },
+  directions: [
+    {
+      type: 'Auto',
+      icon: 'heroicons:map-pin',
+      text: 'Kostenlose Parkplätze direkt vor dem Gebäude'
+    },
+    {
+      type: 'ÖPNV',
+      icon: 'heroicons:building-office',
+      text: 'Straßenbahnhaltestelle "Franckeplatz" (2 Minuten Fußweg)'
+    },
+    {
+      type: 'Fahrrad',
+      icon: 'heroicons:map',
+      text: 'Fahrradständer vor dem Eingang verfügbar'
+    }
+  ]
+};
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  
+  <main class="pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <div class="container">
+      <Breadcrumbs items={[
+        { name: 'Startseite', href: '/' },
+        { name: 'Standort', href: '/standort/' },
+      ]} />
+      <header class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300 mb-4">
+          Standort
+        </div>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-6">
+          Unser Standort in Halle
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Zentral gelegen und gut erreichbar. Besuchen Sie uns in der Franckestraße.
+        </p>
+      </header>
+
+      <div class="max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Map -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm h-[400px]">
+            <div id="mapContainer" class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <div class="text-center p-8">
+                <Icon name="heroicons:map-pin" class="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+                <p class="text-gray-600 dark:text-gray-400">Bitte stimmen Sie der Datenübertragung zu Google Maps zu.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="space-y-8">
+            <!-- Address -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="p-2 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+                  <Icon name="heroicons:map-pin" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Adresse</h2>
+              </div>
+              <address class="not-italic text-gray-600 dark:text-gray-300">
+                {location.address.street}<br />
+                {location.address.city}<br />
+                {location.address.country}
+              </address>
+            </div>
+
+            <!-- Contact -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="p-2 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+                  <Icon name="heroicons:phone" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Kontakt</h2>
+              </div>
+              <div class="space-y-2">
+                <a href={`tel:${location.contact.phone}`} class="block text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
+                  {location.contact.phone}
+                </a>
+                <a href={`mailto:${location.contact.email}`} class="block text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
+                  {location.contact.email}
+                </a>
+              </div>
+            </div>
+
+            <!-- Directions -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="p-2 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+                  <Icon name="heroicons:map" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Anfahrt</h2>
+              </div>
+              <div class="space-y-4">
+                {location.directions.map((direction) => (
+                  <div class="flex items-start gap-3">
+                    <div class="p-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                      <Icon name={direction.icon} class="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                    </div>
+                    <div>
+                      <h3 class="font-medium text-gray-900 dark:text-white">{direction.type}</h3>
+                      <p class="text-sm text-gray-600 dark:text-gray-300">{direction.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <ConsentBanner />
+</Layout>

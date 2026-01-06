@@ -1,0 +1,74 @@
+---
+import { Icon } from 'astro-icon/components';
+import FontSwitcher from './FontSwitcher.astro';
+import FontResizer from './FontResizer.astro';
+---
+
+<div class="flex items-center space-x-4" role="toolbar" aria-label="Darstellungsoptionen">
+  <FontSwitcher />
+
+  <FontResizer />
+
+  <!-- Dark Mode Toggle -->
+  <button
+    type="button"
+    id="darkModeToggle"
+    class="text-sm flex items-center hover:text-accent-400 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 rounded-lg"
+    aria-label="Dunkelmodus umschalten"
+  >
+    <Icon name="heroicons:moon" class="w-4 h-4 mr-1 dark:hidden" />
+    <Icon name="heroicons:sun" class="w-4 h-4 mr-1 hidden dark:block" />
+    <span class="dark:hidden">Dunkel</span>
+    <span class="hidden dark:block">Hell</span>
+  </button>
+</div>
+
+<script>
+  class StyleManager {
+    private readonly elements = {
+      html: document.documentElement,
+      darkModeToggle: document.getElementById('darkModeToggle')
+    };
+
+    constructor() {
+      this.initializeEventListeners();
+      this.loadSavedPreferences();
+    }
+
+    private announce(message: string): void {
+      const announcement = document.createElement('div');
+      announcement.setAttribute('role', 'status');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.className = 'sr-only';
+      announcement.textContent = message;
+      document.body.appendChild(announcement);
+      setTimeout(() => announcement.remove(), 1000);
+    }
+
+    private updateDarkMode(isDark: boolean): void {
+      this.elements.html.classList.toggle('dark', isDark);
+      localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+      this.announce(`Theme wurde zu ${isDark ? 'Dunkel' : 'Hell'} geändert`);
+    }
+
+    private initializeEventListeners(): void {
+      this.elements.darkModeToggle?.addEventListener('click', () => {
+        const isDark = !this.elements.html.classList.contains('dark');
+        this.updateDarkMode(isDark);
+      });
+    }
+
+    private loadSavedPreferences(): void {
+      // Dark mode
+      const savedDarkMode = localStorage.getItem('darkMode');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = savedDarkMode === 'dark' || (savedDarkMode === null && prefersDark);
+      this.updateDarkMode(isDark);
+    }
+  }
+
+  // Initialize style manager when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    new StyleManager();
+  });
+</script>

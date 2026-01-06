@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/organisms/Footer.astro';
+import Breadcrumbs from '../components/molecules/Breadcrumbs.astro';
+import { Icon } from 'astro-icon/components';
+
+const title = "Zahlungsoptionen - SEO Halle";
+const description = "Flexible Zahlungsmöglichkeiten für Ihre SEO-Dienstleistungen. Rechnung, PayPal, Kreditkarte oder Finanzierung - wählen Sie Ihre bevorzugte Zahlungsart.";
+const keywords = [
+  'Zahlungsoptionen',
+  'Zahlungsmethoden',
+  'SEO Zahlung',
+  'PayPal',
+  'Rechnung'
+];
+
+const paymentMethods = [
+  {
+    name: 'Rechnung',
+    description: 'Zahlen Sie bequem nach Erhalt der Rechnung per Überweisung. Zahlungsziel: 14 Tage netto.',
+    icon: 'heroicons:document-text',
+    benefits: [
+      'Klassische und sichere Zahlungsmethode',
+      'Transparente Rechnungsstellung',
+      'Detaillierte Leistungsaufstellung',
+      'Zahlungsziel von 14 Tagen'
+    ]
+  },
+  {
+    name: 'PayPal',
+    description: 'Schnell und sicher bezahlen mit PayPal. Profitieren Sie vom PayPal-Käuferschutz.',
+    icon: 'heroicons:credit-card',
+    benefits: [
+      'Sofortige Zahlungsbestätigung',
+      'Käuferschutz inklusive',
+      'Keine zusätzlichen Gebühren',
+      'International verfügbar'
+    ]
+  },
+  {
+    name: 'Kreditkarte via PayPal',
+    description: 'Zahlen Sie mit Ihrer Kreditkarte über die sichere PayPal-Infrastruktur.',
+    icon: 'heroicons:credit-card',
+    benefits: [
+      'Alle gängigen Kreditkarten akzeptiert',
+      'Sichere Zahlungsabwicklung',
+      'Sofortige Buchungsbestätigung',
+      'Keine versteckten Kosten'
+    ]
+  },
+  {
+    name: 'Finanzierung',
+    description: 'Größere SEO-Projekte bequem in monatlichen Raten finanzieren.',
+    icon: 'heroicons:banknotes',
+    benefits: [
+      'Flexible Laufzeiten',
+      'Transparente Konditionen',
+      'Schnelle Bearbeitung',
+      'Individuelle Ratenvereinbarung'
+    ]
+  }
+];
+
+const features = [
+  {
+    name: 'Sichere Zahlungsabwicklung',
+    description: 'Alle Zahlungen werden SSL-verschlüsselt und nach höchsten Sicherheitsstandards verarbeitet.',
+    icon: 'heroicons:shield-check'
+  },
+  {
+    name: 'Transparente Preise',
+    description: 'Keine versteckten Kosten oder überraschende Gebühren. Sie zahlen nur, was vereinbart wurde.',
+    icon: 'heroicons:currency-euro'
+  },
+  {
+    name: 'Flexible Optionen',
+    description: 'Wählen Sie die Zahlungsmethode, die am besten zu Ihnen und Ihrem Projekt passt.',
+    icon: 'heroicons:adjustments-horizontal'
+  }
+];
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  
+  <main class="pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <div class="container">
+      <Breadcrumbs items={[
+        { name: 'Startseite', href: '/' },
+        { name: 'Zahlungsoptionen', href: '/zahlungsoptionen' },
+      ]} />
+      <!-- Page Header -->
+      <header class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300 mb-4">
+          Zahlungsoptionen
+        </div>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-6">
+          Flexible Zahlungsoptionen für Ihr SEO-Projekt
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Wählen Sie aus verschiedenen Zahlungsmöglichkeiten die für Sie passende Option. 
+          Transparent, sicher und flexibel.
+        </p>
+      </header>
+
+      <!-- Payment Methods -->
+      <div class="grid md:grid-cols-2 gap-8 mb-16">
+        {paymentMethods.map(method => (
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="p-3 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+                <Icon name={method.icon} class="w-8 h-8 text-primary-600 dark:text-primary-400" />
+              </div>
+              <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{method.name}</h2>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 mb-6">{method.description}</p>
+            <ul class="space-y-3">
+              {method.benefits.map(benefit => (
+                <li class="flex items-center text-gray-600 dark:text-gray-300">
+                  <Icon name="heroicons:check" class="w-5 h-5 text-primary-600 dark:text-primary-400 mr-2" />
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Features -->
+      <div class="bg-primary-900 dark:bg-gray-900 rounded-2xl p-8 md:p-12">
+        <div class="grid md:grid-cols-3 gap-8">
+          {features.map(feature => (
+            <div class="text-center">
+              <div class="flex justify-center mb-4">
+                <div class="p-3 bg-white/10 rounded-lg">
+                  <Icon name={feature.icon} class="w-8 h-8 text-white" />
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold text-white mb-2">{feature.name}</h3>
+              <p class="text-gray-300">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center mt-16">
+        <a 
+              href="/kontakt/" 
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+        >
+          Jetzt Beratungsgespräch vereinbaren
+          <Icon name="heroicons:arrow-right" class="ml-2 -mr-1 h-5 w-5" />
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

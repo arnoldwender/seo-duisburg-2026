@@ -1,0 +1,45 @@
+---
+// LocalBusiness JSON-LD for site-wide usage
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "SEO-Halle",
+  "image": "https://seo-halle.de/images/logo-seo-halle.avif",
+  "logo": "https://seo-halle.de/images/logo-seo-halle.avif",
+  "description": "SEO Agentur in Halle (Saale) - Professionelle Suchmaschinenoptimierung mit über 17 Jahren Erfahrung",
+  "address": {
+    "@type": "PostalAddress",
+  "streetAddress": "Franckestraße 3a",
+    "addressLocality": "Halle (Saale)",
+    "postalCode": "06110",
+    "addressCountry": "DE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 51.4825,
+    "longitude": 11.9705
+  },
+  "url": "https://seo-halle.de",
+  "telephone": "+4915141932856",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "09:00",
+    "closes": "15:00"
+  },
+  "priceRange": "€€€",
+  "sameAs": [
+    "https://www.facebook.com/seohalle",
+    "https://twitter.com/seohalle",
+    "https://www.linkedin.com/company/seo-halle"
+  ]
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(businessSchema)} />

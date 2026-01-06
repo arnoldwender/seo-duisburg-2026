@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+import About from '../components/sections/About.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import CtaSection from '../components/sections/CtaSection.astro';
+import Footer from '../components/organisms/Footer.astro';
+import SchemaOrg from '../components/atoms/SchemaOrg.astro';
+const title = 'SEO Agentur Halle (Saale) – Suchmaschinenoptimierung mit Plan';
+const description = 'SEO-Halle: Ihre Agentur für nachhaltige Suchmaschinenoptimierung in Halle (Saale). 18+ Jahre Erfahrung, transparente Beratung, lokales SEO, Technik & Content.';
+const keywords = [
+  'SEO Halle',
+  'SEO Agentur Halle',
+  'Suchmaschinenoptimierung Halle',
+  'Lokales SEO Halle',
+  'SEO Beratung Halle'
+];
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  <SchemaOrg />
+  <main id="main" tabindex="-1">
+    <Hero />
+    <Services />
+    <About />
+    <Testimonials />
+    <FAQ />
+    <CtaSection />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    @apply flex flex-col min-h-screen;
+  }
+
+  main > section {
+    @apply w-full flex-shrink-0;
+  }
+</style>

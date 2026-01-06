@@ -1,0 +1,23 @@
+---
+interface Props {
+  content: string;
+  author: string;
+  role: string;
+  class?: string;
+}
+
+const { content, author, role, class: className } = Astro.props;
+---
+
+<figure class:list={[
+  "bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm hover:shadow-lg transition-shadow",
+  className
+]}>
+  <blockquote class="flex-1">
+    <p class="text-gray-600 dark:text-gray-300 mb-6">{content}</p>
+  </blockquote>
+  <figcaption>
+    <p class="font-semibold text-gray-900 dark:text-white">{author}</p>
+    <p class="text-gray-500 dark:text-gray-400 text-sm">{role}</p>
+  </figcaption>
+</figure>

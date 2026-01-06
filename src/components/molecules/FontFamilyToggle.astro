@@ -1,0 +1,68 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<button
+  type="button"
+  id="fontFamilyToggle"
+  class="text-sm flex items-center gap-2 px-3 py-1.5 hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 rounded-lg relative group"
+  aria-pressed="false"
+  aria-label="Zwischen Standard- und Leseschrift wechseln"
+>
+  <Icon name="heroicons:document-text" class="w-4 h-4 mr-1" />
+  <span id="fontLabel" class="font-medium">Standardschrift</span>
+  <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-accent-400 transform scale-x-0 transition-transform origin-left group-hover:bg-accent-400/50" id="fontIndicator"></span>
+</button>
+
+<script>
+  let isSerif = false;
+  const fontLabel = document.getElementById('fontLabel');
+  const fontToggle = document.getElementById('fontFamilyToggle');
+  const fontIndicator = document.getElementById('fontIndicator');
+  
+  function updateFontFamily(serif: boolean) {
+    if (serif) {
+      document.documentElement.classList.remove('font-sans');
+      document.documentElement.classList.add('font-serif');
+    } else {
+      document.documentElement.classList.remove('font-serif');
+      document.documentElement.classList.add('font-sans');
+    }
+    
+    if (fontLabel) {
+      fontLabel.textContent = serif ? 'Leseschrift' : 'Standardschrift';
+    }
+    
+    if (fontToggle) {
+      fontToggle.setAttribute('aria-pressed', serif.toString());
+    }
+    
+    if (fontIndicator) {
+      fontIndicator.style.transform = `scaleX(${serif ? 1 : 0})`;
+    }
+    
+    localStorage.setItem('fontFamily', serif ? 'serif' : 'sans-serif');
+    
+    const announcement = document.createElement('div');
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.className = 'sr-only';
+    announcement.textContent = `${serif ? 'Leseschrift' : 'Standardschrift'} wurde aktiviert`;
+    document.body.appendChild(announcement);
+    setTimeout(() => announcement.remove(), 1000);
+  }
+
+  document.getElementById('fontFamilyToggle')?.addEventListener('click', () => {
+    isSerif = !isSerif;
+    updateFontFamily(isSerif);
+  });
+
+  // Initialize font family
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedFontFamily = localStorage.getItem('fontFamily');
+    isSerif = savedFontFamily === 'serif';
+    if (savedFontFamily) {
+      updateFontFamily(isSerif);
+    }
+  });
+</script>

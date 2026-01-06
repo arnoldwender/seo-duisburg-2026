@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/organisms/Footer.astro';
+import Breadcrumbs from '../components/molecules/Breadcrumbs.astro';
+import { Icon } from 'astro-icon/components';
+
+const title = "Öffnungszeiten - SEO Halle";
+const description = "Unsere Öffnungszeiten und Erreichbarkeit. SEO-Agentur in Halle (Saale) - Termine nach Vereinbarung.";
+const keywords = [
+  'Öffnungszeiten',
+  'Erreichbarkeit',
+  'SEO Halle Öffnungszeiten'
+];
+
+const hours = {
+  regular: 'Montag - Freitag | 09:00 - 15:00 Uhr',
+  note: 'Termine nur nach Vereinbarung',
+  contact: {
+    phone: '0151-4193-2856',
+    email: 'info@seo-halle.de'
+  },
+  special: [
+    { date: '24.12.2025 - 26.12.2025', text: 'Weihnachten' },
+    { date: '31.12.2025 - 01.01.2026', text: 'Silvester/Neujahr' }
+  ]
+};
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  
+  <main class="pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <div class="container">
+      <Breadcrumbs items={[
+        { name: 'Startseite', href: '/' },
+        { name: 'Öffnungszeiten', href: '/oeffnungszeiten/' },
+      ]} />
+      <header class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300 mb-4">
+          Öffnungszeiten
+        </div>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-6">
+          Öffnungszeiten & Erreichbarkeit
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Wir sind für Sie da. Erfahren Sie hier, wann und wie Sie uns am besten erreichen können.
+        </p>
+      </header>
+
+      <div class="max-w-3xl mx-auto">
+        <!-- Regular Hours -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm mb-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="p-3 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+              <Icon name="heroicons:clock" class="w-8 h-8 text-primary-600 dark:text-primary-400" />
+            </div>
+            <div>
+              <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Reguläre Öffnungszeiten</h2>
+              <p class="text-gray-600 dark:text-gray-300">{hours.regular}</p>
+            </div>
+          </div>
+          <p class="text-gray-500 dark:text-gray-400 italic mb-6">{hours.note}</p>
+          
+          <div class="grid sm:grid-cols-2 gap-6">
+            <a href={`tel:${hours.contact.phone}`} class="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <Icon name="heroicons:phone" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+              <span class="text-gray-900 dark:text-white">{hours.contact.phone}</span>
+            </a>
+            <a href={`mailto:${hours.contact.email}`} class="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <Icon name="heroicons:envelope" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+              <span class="text-gray-900 dark:text-white">{hours.contact.email}</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Special Hours -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm">
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Sonderöffnungszeiten & Feiertage</h2>
+          <div class="space-y-4">
+            {hours.special.map(({ date, text }) => (
+              <div class="flex items-center justify-between p-4 border border-gray-100 dark:border-gray-700 rounded-lg">
+                <span class="text-gray-900 dark:text-white font-medium">{text}</span>
+                <span class="text-gray-600 dark:text-gray-300">{date}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

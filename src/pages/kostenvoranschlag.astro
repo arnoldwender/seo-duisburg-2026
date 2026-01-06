@@ -1,0 +1,136 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/organisms/Footer.astro';
+import Breadcrumbs from '../components/molecules/Breadcrumbs.astro';
+import ContactForm from '../components/molecules/ContactForm.astro';
+import { Icon } from 'astro-icon/components';
+
+const title = "Kostenvoranschlag anfordern - SEO Halle";
+const description = "Fordern Sie jetzt Ihren individuellen SEO-Kostenvoranschlag an. Transparente Preise und maßgeschneiderte Lösungen für Ihr Unternehmen.";
+const keywords = [
+  'Kostenvoranschlag SEO',
+  'SEO Angebot',
+  'SEO Preise Halle',
+  'SEO Kosten'
+];
+
+const benefits = [
+  {
+    title: "Transparente Preisgestaltung",
+    description: "Erhalten Sie eine detaillierte Aufschlüsselung aller Leistungen und Kosten.",
+    icon: "heroicons:currency-euro"
+  },
+  {
+    title: "Individuelle Lösungen",
+    description: "Maßgeschneiderte SEO-Strategien für Ihre spezifischen Anforderungen.",
+    icon: "heroicons:puzzle-piece"
+  },
+  {
+    title: "Schnelle Bearbeitung",
+    description: "Erhalten Sie Ihren Kostenvoranschlag innerhalb von 24 Stunden.",
+    icon: "heroicons:clock"
+  }
+];
+
+const packages = [
+  {
+    name: "SEO-Analyse & Strategie",
+    price: "ab 500€",
+    description: "Umfassende Analyse und strategische Planung"
+  },
+  {
+    name: "Content-Optimierung",
+    price: "ab 400€",
+    description: "Texte, Struktur & Meta-Optimierung"
+  },
+  {
+    name: "Technisches SEO",
+    price: "ab 600€",
+    description: "Pagespeed & Mobile Optimization"
+  }
+];
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  
+  <main class="pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <div class="container">
+      <Breadcrumbs items={[
+        { name: 'Startseite', href: '/' },
+        { name: 'Kostenvoranschlag', href: '/kostenvoranschlag/' },
+      ]} />
+      <!-- Page Header -->
+      <header class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300 mb-4">
+          Kostenvoranschlag
+        </div>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-6">
+          Ihr individueller SEO-Kostenvoranschlag
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Erhalten Sie ein maßgeschneidertes Angebot für Ihre SEO-Anforderungen. Transparent, fair und ohne versteckte Kosten.
+        </p>
+      </header>
+
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-16">
+        <!-- Left Column - Contact Form -->
+        <div>
+          <ContactForm />
+        </div>
+
+        <!-- Right Column -->
+        <div class="space-y-8">
+          <!-- Benefits -->
+          <div class="grid gap-6">
+            {benefits.map(benefit => (
+              <div class="flex gap-4 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+                <div class="flex-shrink-0">
+                  <div class="p-2 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+                    <Icon name={benefit.icon} class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                  </div>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {benefit.title}
+                  </h3>
+                  <p class="text-gray-600 dark:text-gray-300">
+                    {benefit.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Example Packages -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+              Beispiel-Pakete
+            </h2>
+            <div class="space-y-4">
+              {packages.map(pkg => (
+                <div class="flex justify-between items-center p-4 border border-gray-100 dark:border-gray-700 rounded-lg">
+                  <div>
+                    <h3 class="font-medium text-gray-900 dark:text-white">
+                      {pkg.name}
+                    </h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                      {pkg.description}
+                    </p>
+                  </div>
+                  <div class="text-primary-600 dark:text-primary-400 font-semibold">
+                    {pkg.price}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+              * Preise sind Richtwerte und können je nach Projektumfang variieren
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

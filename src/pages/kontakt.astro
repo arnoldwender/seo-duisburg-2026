@@ -1,0 +1,124 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/organisms/Footer.astro';
+import Breadcrumbs from '../components/molecules/Breadcrumbs.astro';
+import SimpleContactForm from '../components/molecules/SimpleContactForm.astro';
+import CTAContent from '../components/molecules/CTAContent.astro';
+import ConsentBanner from '../components/molecules/ConsentBanner.astro';
+import { Icon } from 'astro-icon/components';
+
+const title = "Kontakt - SEO Halle";
+const description = "Kontaktieren Sie die SEO-Agentur Halle für Ihre individuelle SEO-Beratung. Wir helfen Ihnen gerne bei der Optimierung Ihrer Online-Präsenz.";
+const keywords = [
+  'Kontakt SEO Halle',
+  'SEO Agentur Kontakt',
+  'SEO Beratung Halle',
+  'SEO Anfrage Halle'
+];
+
+const contactInfo = {
+  address: {
+    street: 'Franckestraße 3a',
+    city: '06110 Halle (Saale)',
+    country: 'Deutschland'
+  },
+  phone: {
+    mobile: '0151-4193-2856',
+    office: '0345-6867-6857'
+  },
+  email: 'info@seo-halle.de',
+  hours: 'Montag - Freitag | 09:00 - 15:00 Uhr'
+};
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  
+  <main class="pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <div class="container">
+      <Breadcrumbs items={[
+        { name: 'Startseite', href: '/' },
+        { name: 'Kontakt', href: '/kontakt/' },
+      ]} />
+      <!-- Page Header -->
+      <header class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300 mb-4">
+          Kontakt
+        </div>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-6">
+          Lassen Sie uns Ihr Projekt besprechen
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Kontaktieren Sie uns für eine kostenlose Erstberatung. Wir melden uns innerhalb von 24 Stunden bei Ihnen zurück.
+        </p>
+      </header>
+
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-16">
+        <!-- Contact Form -->
+        <div>
+          <SimpleContactForm />
+        </div>
+
+        <!-- Contact Information -->
+        <div class="space-y-8">
+          <!-- Contact Cards -->
+          <div class="grid sm:grid-cols-2 gap-6">
+            <!-- Address -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="p-2 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+                  <Icon name="heroicons:map-pin" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Adresse</h2>
+              </div>
+              <address class="not-italic text-gray-600 dark:text-gray-300">
+                {contactInfo.address.street}<br />
+                {contactInfo.address.city}<br />
+                {contactInfo.address.country}
+              </address>
+            </div>
+
+            <!-- Contact -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="p-2 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+                  <Icon name="heroicons:phone" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Kontakt</h2>
+              </div>
+              <div class="space-y-2">
+                <a href={`tel:${contactInfo.phone.mobile}`} class="block text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
+                  Mobil: {contactInfo.phone.mobile}
+                </a>
+                <a href={`tel:${contactInfo.phone.office}`} class="block text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
+                  Tel: {contactInfo.phone.office}
+                </a>
+                <a href={`mailto:${contactInfo.email}`} class="block text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
+                  {contactInfo.email}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="p-2 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+                <Icon name="heroicons:map" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+              </div>
+              <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Standort</h2>
+            </div>
+            <div id="mapContainer" class="aspect-video rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <div class="text-center p-8">
+                <Icon name="heroicons:map-pin" class="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+                <p class="text-gray-600 dark:text-gray-400">Bitte stimmen Sie der Datenübertragung zu Google Maps zu.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <ConsentBanner />
+</Layout>

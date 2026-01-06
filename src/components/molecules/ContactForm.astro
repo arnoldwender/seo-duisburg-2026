@@ -1,0 +1,658 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const inquiryTypes = [
+  { 
+    id: 'general', 
+    name: 'Allgemeine Anfrage',
+    description: 'Für allgemeine Fragen zu unseren SEO-Dienstleistungen',
+    icon: 'heroicons:chat-bubble-bottom-center-text',
+    step: 1
+  },
+  { 
+    id: 'quote', 
+    name: 'Kostenvoranschlag',
+    description: 'Für ein individuelles Angebot und detaillierte Beratung',
+    icon: 'heroicons:document-text',
+    step: 1
+  }
+];
+
+const seoServices = [
+  { 
+    id: 'seo-analyse', 
+    name: 'SEO-Analyse & Strategie',
+    description: 'Umfassende Analyse und strategische Planung',
+    price: 'ab 500€'
+  },
+  { 
+    id: 'keyword-analyse', 
+    name: 'Keyword- und Konkurrenzanalyse',
+    description: 'Detaillierte Markt- und Wettbewerbsanalyse',
+    price: 'ab 299€'
+  },
+  { 
+    id: 'technical-seo', 
+    name: 'Technisches SEO',
+    description: 'Pagespeed & Mobile Optimization',
+    price: 'ab 600€'
+  },
+  { 
+    id: 'content-optimization', 
+    name: 'Content-Optimierung',
+    description: 'Texte, Struktur & Meta-Optimierung',
+    price: 'ab 400€'
+  },
+  { 
+    id: 'local-seo', 
+    name: 'Lokales SEO',
+    description: 'Google MyBusiness & lokale Rankings',
+    price: 'ab 300€'
+  },
+  { 
+    id: 'social-seo', 
+    name: 'Social Media SEO',
+    description: 'Social Signals & Profiloptimierung',
+    price: 'ab 350€'
+  },
+  { 
+    id: 'content-creation', 
+    name: 'SEO-Content-Erstellung',
+    description: 'Blogartikel & Landingpages',
+    price: 'ab 0,15€/Wort'
+  },
+  { 
+    id: 'video-seo', 
+    name: 'Video-SEO',
+    description: 'Slideshows & Videooptimierung',
+    price: 'ab 450€'
+  },
+  { 
+    id: 'website-creation', 
+    name: 'SEO-Ready Website',
+    description: 'WordPress-Entwicklung mit SEO-Fokus',
+    price: 'ab 1.499€'
+  },
+  { 
+    id: 'technical-maintenance', 
+    name: 'Technische Wartung',
+    description: 'Webmaster & Maintenance Service',
+    price: 'ab 199€/Monat'
+  }
+];
+
+const projectStart = [
+  { id: 'immediate', name: 'Sofort' },
+  { id: 'flexible', name: 'Flexibel' },
+  { id: 'later', name: 'Später' }
+];
+
+const websiteStatus = [
+  { 
+    id: 'existing', 
+    name: 'Bestehende Website',
+    description: 'Ihre Website existiert bereits und soll optimiert werden',
+    icon: 'heroicons:globe-alt'
+  },
+  { 
+    id: 'planned', 
+    name: 'Website in Planung',
+    description: 'Sie planen eine neue Website mit SEO-Optimierung',
+    icon: 'heroicons:pencil-square'
+  },
+  { 
+    id: 'none', 
+    name: 'Noch keine Website',
+    description: 'Sie benötigen eine komplett neue Website',
+    icon: 'heroicons:plus-circle'
+  }
+];
+
+const monthlyBudget = [
+  { id: 'xs', name: 'unter 1.000€' },
+  { id: 'sm', name: '1.000€ - 3.000€' },
+  { id: 'md', name: '3.000€ - 5.000€' },
+  { id: 'lg', name: 'über 5.000€' }
+];
+---
+
+<div class:list={["h-full flex flex-col bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-2xl", className]}>
+  <!-- Progress Bar -->
+  <div class="mb-8" id="progressBar">
+    <div class="flex justify-between mb-2">
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300" id="progressText">Schritt 1 von 4</span>
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300" id="progressPercentage">25%</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+      <div class="bg-primary-600 h-2.5 rounded-full transition-all duration-300" style="width: 25%" id="progressIndicator"></div>
+    </div>
+  </div>
+
+  <!-- Trust Elements -->
+  <div class="flex items-center justify-between mb-6 pb-6 border-b border-gray-100 dark:border-gray-700">
+    <div class="flex items-center space-x-4">
+      <div class="flex items-center p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
+        <Icon name="heroicons:shield-check" class="h-6 w-6 text-green-600 dark:text-green-400" />
+      </div>
+      <div class="flex items-center p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+        <Icon name="heroicons:document-check" class="h-6 w-6 text-blue-600 dark:text-blue-400" />
+      </div>
+    </div>
+    <div class="text-xs text-gray-500 dark:text-gray-400 text-right">
+      <p>SSL verschlüsselt</p>
+      <p>DSGVO-konform</p>
+    </div>
+  </div>
+
+  <form id="contactForm" class="h-full flex flex-col" method="POST" action="/api/contact" data-netlify="true" data-netlify-honeypot="bot-field">
+    <div class="flex-grow space-y-6">
+      <!-- Error Container -->
+      <div id="formErrors" class="hidden bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 p-4 rounded-lg mb-4">
+        <div class="flex items-center gap-2">
+          <Icon name="heroicons:exclamation-circle" class="w-5 h-5" />
+          <p class="text-sm font-medium">Bitte korrigieren Sie die folgenden Fehler:</p>
+        </div>
+        <ul class="list-disc list-inside mt-2 text-sm"></ul>
+      </div>
+
+      <!-- Inquiry Type Selection -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Art der Anfrage *</label>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Wählen Sie die Art Ihrer Anfrage, um fortzufahren</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {inquiryTypes.map((type) => (
+            <label class="relative flex cursor-pointer rounded-lg border dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700 focus-within:ring-2 focus-within:ring-primary-500 transition-all duration-300 hover:scale-[1.02]">
+              <input
+                type="radio"
+                name="inquiryType"
+                value={type.id}
+                class="sr-only peer"
+                required
+              />
+              <span class="flex flex-1 flex-col">
+                <span class="flex items-center gap-3 mb-2">
+                  <Icon name={type.icon} class="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                  <span class="block text-sm font-medium text-gray-900 dark:text-gray-100">{type.name}</span>
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">{type.description}</span>
+              </span>
+              <Icon name="heroicons:check-circle" class="h-5 w-5 text-primary-600 opacity-0 peer-checked:opacity-100 transition-opacity" />
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- Website Status -->
+      <div class="space-y-2 hidden" id="websiteStatusSection">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status Ihrer Website *</label>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Wählen Sie den aktuellen Status Ihrer Website</p>
+        <div class="grid grid-cols-1 gap-3">
+          {websiteStatus.map((status) => (
+            <label class="relative flex cursor-pointer rounded-lg border dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700 focus-within:ring-2 focus-within:ring-primary-500 transition-all duration-300 hover:scale-[1.02]">
+              <input
+                type="radio"
+                name="websiteStatus"
+                value={status.id}
+                class="sr-only peer"
+                required
+              />
+              <span class="flex flex-1">
+                <span class="flex items-center gap-3">
+                  <Icon name={status.icon} class="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                  <span class="block text-sm font-medium text-gray-900 dark:text-gray-100">{status.name}</span>
+                  <span class="text-sm text-gray-500 dark:text-gray-400">{status.description}</span>
+                </span>
+              </span>
+              <Icon name="heroicons:check-circle" class="h-5 w-5 text-primary-600 opacity-0 peer-checked:opacity-100 transition-opacity" />
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- Website URL (Initially Hidden) -->
+      <div class="space-y-2 hidden" id="websiteUrlSection">
+        <label for="websiteUrl" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ihre Website URL *</label>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Geben Sie die URL Ihrer bestehenden Website ein</p>
+        <input
+          type="url"
+          id="websiteUrl"
+          name="websiteUrl"
+          class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+          placeholder="https://www.ihre-website.de"
+        />
+        <div class="flex items-center mt-2 text-sm text-gray-500 dark:text-gray-400">
+          <Icon name="heroicons:information-circle" class="w-5 h-5 mr-2" />
+          <span>Diese Information hilft uns bei der Analyse Ihrer Website</span>
+        </div>
+      </div>
+
+      <!-- Service Selection -->
+      <div class="space-y-4 hidden" id="serviceSelection">
+        <div class="mb-6">
+          <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">SEO-Dienstleistungen</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Wählen Sie die gewünschten Leistungen (Mehrfachauswahl möglich)</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {seoServices.map((service) => (
+            <label class="relative flex cursor-pointer rounded-lg border dark:border-gray-700 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 focus-within:ring-2 focus-within:ring-primary-500">
+              <input
+                type="checkbox"
+                name="services"
+                value={service.id}
+                class="sr-only peer"
+              />
+              <span class="flex flex-1">
+                <span class="flex flex-col">
+                  <span class="block text-sm font-medium text-gray-900 dark:text-gray-100">{service.name}</span>
+                  <span class="mt-1 text-xs text-gray-500">{service.description}</span>
+                  <span class="mt-2 text-xs font-medium text-primary-600">{service.price}</span>
+                </span>
+              </span>
+              <Icon name="heroicons:check-circle" class="h-5 w-5 text-primary-600 opacity-0 peer-checked:opacity-100 transition-opacity" />
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- Project Start -->
+      <div class="space-y-4 hidden" id="projectStartSection">
+        <div class="mb-6">
+          <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Gewünschter Projektstart</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Wann möchten Sie mit dem Projekt beginnen?</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {projectStart.map((option) => (
+            <label class="relative flex cursor-pointer rounded-lg border dark:border-gray-700 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 focus-within:ring-2 focus-within:ring-primary-500">
+              <input
+                type="radio"
+                name="projectStart"
+                value={option.id}
+                class="sr-only peer"
+                required
+              />
+              <span class="flex flex-1 justify-center">
+                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{option.name}</span>
+                </span>
+              <Icon name="heroicons:check-circle" class="h-5 w-5 text-primary-600 opacity-0 peer-checked:opacity-100 transition-opacity" />
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- Monthly Budget -->
+      <div class="space-y-2 hidden" id="budgetSection">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Monatliches Budget *</label>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Welches Budget haben Sie für Ihr SEO-Projekt eingeplant?</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {monthlyBudget.map((budget) => (
+            <label class="relative flex cursor-pointer rounded-lg border dark:border-gray-700 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 focus-within:ring-2 focus-within:ring-primary-500">
+              <input
+                type="radio"
+                name="budget"
+                value={budget.id}
+                class="sr-only peer"
+                required
+              />
+              <span class="flex flex-1">
+                <span class="flex flex-col">
+                  <span class="block text-sm font-medium text-gray-900 dark:text-gray-100">{budget.name}</span>
+                </span>
+              </span>
+              <Icon name="heroicons:check-circle" class="h-5 w-5 text-primary-600 opacity-0 peer-checked:opacity-100 transition-opacity" />
+            </label>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Project Description (Initially Hidden) -->
+      <div class="space-y-2 hidden" id="projectDescriptionSection">
+        <label for="projectDescription" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Projektbeschreibung *</label>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Beschreiben Sie Ihr Projekt und Ihre Ziele im Detail</p>
+        <textarea
+          id="projectDescription"
+          name="projectDescription"
+          rows="4"
+          class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+          placeholder="Beschreiben Sie Ihre Projektziele, Anforderungen und Erwartungen..."
+        ></textarea>
+      </div>
+      <!-- Basic Info -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2 sm:col-span-1">
+          <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name *</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+            placeholder="Ihr vollständiger Name"
+          />
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">E-Mail *</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+            placeholder="ihre@email.de"
+          />
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div>
+        <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ihre Nachricht *</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          required
+          class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+          placeholder="Wie können wir Ihnen helfen?"
+        ></textarea>
+      </div>
+
+      <!-- Privacy Policy -->
+      <div class="flex items-start space-x-3">
+        <div class="flex items-center h-5">
+          <input
+            id="privacy"
+            name="privacy"
+            type="checkbox"
+            required
+            class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500"
+          />
+        </div>
+        <label for="privacy" class="text-sm text-gray-500 dark:text-gray-400">
+          Ich stimme der <a href="/datenschutz/" class="text-primary-600 hover:text-primary-700 underline">Datenschutzerklärung</a> zu *
+        </label>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mt-6">
+      <button
+        type="submit"
+        id="submitButton"
+        class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+      >
+        <span id="submitButtonText">Weiter</span>
+        <span id="submitButtonIconArrow" class="ml-2 -mr-1 h-5 w-5" aria-hidden="true">
+          <Icon name="heroicons:arrow-right" class="h-5 w-5" />
+        </span>
+        <span id="submitButtonIconPlane" class="ml-2 -mr-1 h-5 w-5 hidden" aria-hidden="true">
+          <Icon name="heroicons:paper-airplane" class="h-5 w-5" />
+        </span>
+      </button>
+      <p class="mt-3 text-xs text-center text-gray-500 dark:text-gray-400">
+        <Icon name="heroicons:shield-check" class="inline-block w-4 h-4 mr-1 text-primary-600" />
+        Ihre Daten werden SSL-verschlüsselt übertragen
+      </p>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement | null;
+  const progressText = document.getElementById('progressText');
+  const progressPercentage = document.getElementById('progressPercentage');
+  const progressIndicator = document.getElementById('progressIndicator');
+  const submitButton = document.getElementById('submitButton') as HTMLButtonElement | null;
+  const submitButtonText = document.getElementById('submitButtonText');
+  const submitButtonIconArrow = document.getElementById('submitButtonIconArrow');
+  const submitButtonIconPlane = document.getElementById('submitButtonIconPlane');
+  const projectDescriptionSection = document.getElementById('projectDescriptionSection');
+  const projectStartSection = document.getElementById('projectStartSection');
+
+  type NotificationType = 'success' | 'error';
+
+  const showNotification = (type: NotificationType, text: string) => {
+    const existingNotification = document.querySelector('[data-form-notification="contact"]');
+    existingNotification?.remove();
+
+    const notification = document.createElement('div');
+    notification.dataset.formNotification = 'contact';
+    notification.className = [
+      'fixed top-4 right-4 z-50 px-4 py-3 rounded border shadow-lg transition-opacity',
+      type === 'success'
+        ? 'bg-green-100 dark:bg-green-900 border-green-400 dark:border-green-700 text-green-700 dark:text-green-300'
+        : 'bg-red-100 dark:bg-red-900 border-red-400 dark:border-red-700 text-red-700 dark:text-red-300'
+    ].join(' ');
+    notification.setAttribute('role', 'status');
+    notification.setAttribute('aria-live', 'polite');
+
+    const content = document.createElement('div');
+    content.className = 'flex items-center';
+
+    const icon = document.createElement('span');
+    icon.className = 'mr-2 text-lg font-semibold';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = type === 'success' ? '✓' : '!';
+
+    const srLabel = document.createElement('span');
+    srLabel.className = 'sr-only';
+    srLabel.textContent = type === 'success' ? 'Erfolgsmeldung:' : 'Fehlermeldung:';
+
+    const message = document.createElement('p');
+    message.textContent = text;
+
+    content.append(icon, srLabel, message);
+    notification.appendChild(content);
+
+    document.body.appendChild(notification);
+    window.setTimeout(() => notification.remove(), 5000);
+  };
+
+  let currentStep = 1;
+  const totalSteps = 4;
+
+  function updateProgress(step: number) {
+    const percentage = (step / totalSteps) * 100;
+    if (progressText) progressText.textContent = `Schritt ${step} von ${totalSteps}`;
+    if (progressPercentage) progressPercentage.textContent = `${percentage}%`;
+    if (progressIndicator) progressIndicator.style.width = `${percentage}%`;
+
+    // Update button text
+    if (submitButtonText) {
+      submitButtonText.textContent = step === totalSteps ? 'Anfrage senden' : 'Weiter';
+    }
+    if (submitButtonIconArrow && submitButtonIconPlane) {
+      submitButtonIconArrow.classList.toggle('hidden', step === totalSteps);
+      submitButtonIconPlane.classList.toggle('hidden', step !== totalSteps);
+    }
+  }
+  const websiteStatusSection = document.getElementById('websiteStatusSection');
+  const websiteUrlSection = document.getElementById('websiteUrlSection');
+  const websiteUrlInput = document.getElementById('websiteUrl') as HTMLInputElement;
+  const serviceSelection = document.getElementById('serviceSelection');
+  const budgetSection = document.getElementById('budgetSection');
+  const recurringServices = document.getElementById('recurringServices');
+  const oneTimeServices = document.getElementById('oneTimeServices');
+  const defaultContent = document.getElementById('defaultContent');
+  const seoTipsSection = document.getElementById('seoTipsSection');
+
+  // Function to show section with animation
+  function showSection(section: HTMLElement | null) {
+    if (!section) return;
+    section.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      section.classList.add('animate-fade-in');
+      section.classList.remove('opacity-0');
+    });
+  }
+
+  // Function to hide section with animation
+  function hideSection(section: HTMLElement | null) {
+    if (!section) return;
+    section.classList.add('animate-fade-out');
+    setTimeout(() => {
+      section.classList.add('hidden');
+      section.classList.remove('animate-fade-out');
+    }, 200);
+  }
+  
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (currentStep < totalSteps) {
+      currentStep++;
+      updateProgress(currentStep);
+
+      if (currentStep === 2) {
+        showSection(websiteStatusSection);
+      } else if (currentStep === 3) {
+        showSection(serviceSelection);
+        showSection(projectStartSection);
+      } else if (currentStep === 4) {
+        showSection(budgetSection);
+        showSection(projectDescriptionSection);
+      }
+
+      return;
+    }
+
+    const errorContainer = document.getElementById('formErrors');
+    const errorList = errorContainer?.querySelector('ul');
+    if (errorList) errorList.innerHTML = '';
+    errorContainer?.classList.add('hidden');
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    const errors: string[] = [];
+
+    const inquiryType = (formData.get('inquiryType') ?? '').toString();
+    const name = (formData.get('name') ?? '').toString().trim();
+    const email = (formData.get('email') ?? '').toString().trim();
+    const message = (formData.get('message') ?? '').toString().trim();
+    const privacy = formData.get('privacy');
+
+    if (!inquiryType) errors.push('Bitte wählen Sie eine Art der Anfrage');
+    if (!name) errors.push('Name ist erforderlich');
+    if (!email) errors.push('E-Mail ist erforderlich');
+    if (!message) errors.push('Nachricht ist erforderlich');
+    if (!privacy) errors.push('Bitte stimmen Sie der Datenschutzerklärung zu');
+
+    if (inquiryType === 'quote') {
+      if (!formData.get('websiteStatus')) errors.push('Bitte wählen Sie den Status Ihrer Website');
+      if (!formData.get('projectStart')) errors.push('Bitte wählen Sie den gewünschten Projektstart');
+      if (!formData.get('budget')) errors.push('Bitte wählen Sie ein Budget');
+    }
+
+    if (errors.length > 0) {
+      if (errorContainer && errorList) {
+        errorContainer.classList.remove('hidden');
+        errors.forEach((error) => {
+          const li = document.createElement('li');
+          li.textContent = error;
+          errorList.appendChild(li);
+        });
+      }
+      return;
+    }
+
+    submitButton?.setAttribute('aria-busy', 'true');
+    submitButton?.setAttribute('disabled', 'true');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(formData.entries()))
+      });
+
+      if (response.ok) {
+        showNotification('success', 'Vielen Dank für Ihre Nachricht. Wir melden uns in Kürze bei Ihnen.');
+        form?.reset();
+        currentStep = 1;
+        updateProgress(currentStep);
+        hideSection(websiteStatusSection);
+        hideSection(serviceSelection);
+        hideSection(projectStartSection);
+        hideSection(budgetSection);
+        hideSection(projectDescriptionSection);
+        hideSection(websiteUrlSection);
+      } else {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Fehler beim Senden der Nachricht');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      showNotification('error', 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
+    } finally {
+      submitButton?.removeAttribute('aria-busy');
+      submitButton?.removeAttribute('disabled');
+    }
+  });
+
+  form?.addEventListener('change', (e) => {
+    const target = e.target as HTMLInputElement;
+    
+    if (target.name === 'inquiryType') {
+      if (target.value === 'quote') {
+        currentStep = 2;
+        updateProgress(currentStep);
+        showSection(websiteStatusSection);
+        hideSection(serviceSelection);
+        hideSection(projectStartSection);
+        hideSection(budgetSection);
+        hideSection(projectDescriptionSection);
+      } else {
+        currentStep = 4;
+        updateProgress(currentStep);
+        hideSection(websiteStatusSection);
+        hideSection(serviceSelection);
+        hideSection(projectStartSection);
+        hideSection(budgetSection);
+        hideSection(projectDescriptionSection);
+        hideSection(websiteUrlSection);
+      }
+    }
+
+    if (target.name === 'websiteStatus') {
+      currentStep = 3;
+      updateProgress(currentStep);
+      showSection(serviceSelection);
+      
+      if (target.value === 'existing') {
+        showSection(websiteUrlSection);
+        websiteUrlInput?.setAttribute('required', 'true');
+      } else {
+        hideSection(websiteUrlSection);
+        websiteUrlInput?.removeAttribute('required');
+      }
+    }
+
+    if (target.name === 'services') {
+      const checkedServices = document.querySelectorAll('input[name="services"]:checked');
+      if (checkedServices.length > 0) {
+        showSection(projectStartSection);
+      }
+    }
+
+    if (target.name === 'projectStart') {
+      currentStep = 4;
+      updateProgress(currentStep);
+      showSection(budgetSection);
+    }
+
+    if (target.name === 'budget') {
+      if (target.value === 'lg') {
+        showSection(projectDescriptionSection);
+        const projectDescriptionInput = document.getElementById('projectDescription') as HTMLTextAreaElement;
+        if (projectDescriptionInput) {
+          projectDescriptionInput.setAttribute('required', 'true');
+        }
+      }
+    }
+  });
+</script>

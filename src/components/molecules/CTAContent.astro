@@ -1,0 +1,67 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  description: string;
+  features?: string[];
+  class?: string;
+}
+
+const { 
+  title = "Lassen Sie uns Ihr Projekt besprechen",
+  description = "Erzählen Sie uns von Ihrem Projekt und wir melden uns innerhalb von 24 Stunden bei Ihnen zurück. Oder rufen Sie uns direkt an, wir freuen uns auf das Gespräch mit Ihnen.",
+  features = [
+    "Kostenlose Erstberatung",
+    "Antwort innerhalb von 24 Stunden",
+    "Transparente Preisgestaltung",
+    "Keine versteckten Kosten"
+  ],
+  class: className
+} = Astro.props;
+---
+
+<div class:list={["h-full flex flex-col", className]}>
+  <div>
+    <span class="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-accent-600/20 text-accent-200">
+      KONTAKT
+    </span>
+    <h2 class="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-white">
+      {title}
+    </h2>
+    <p class="mt-6 text-lg text-gray-100">
+      {description}
+    </p>
+  </div>
+
+  <div class="flex-grow mt-8 md:mt-12 bg-white/5 backdrop-blur-sm rounded-xl p-6 md:p-8 border border-white/10">
+    <h3 class="text-xl font-semibold text-white mb-6">Unser Versprechen an Sie:</h3>
+    <ul class="space-y-4">
+      {features.map((feature) => (
+        <li class="flex items-center text-gray-100">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-accent-500 flex items-center justify-center mr-3">
+            <Icon name="heroicons:check" class="w-4 h-4 text-white" />
+          </div>
+          {feature}
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+      <a 
+        href="tel:+4915141932856" 
+        class="inline-flex items-center text-gray-100 hover:bg-white/10 px-4 py-2 rounded-lg transition-colors w-full sm:w-auto justify-center sm:justify-start"
+      >
+        <Icon name="heroicons:phone" class="w-5 h-5 mr-2" />
+        +49 151 4193 2856
+      </a>
+      <a 
+        href="mailto:info@wendermedia.com" 
+        class="inline-flex items-center text-gray-100 hover:bg-white/10 px-4 py-2 rounded-lg transition-colors w-full sm:w-auto justify-center sm:justify-start"
+      >
+        <Icon name="heroicons:envelope" class="w-5 h-5 mr-2" />
+        info@wendermedia.com
+      </a>
+    </div>
+  </div>
+</div>

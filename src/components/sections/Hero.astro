@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+---
+
+<section class="relative overflow-hidden bg-gray-900 dark:bg-black min-h-[100svh] flex flex-col" aria-labelledby="hero-heading">
+  <!-- Background Layer -->
+  <div class="absolute inset-0 z-0" aria-hidden="true">
+    <img 
+      width="1280"
+      height="720"
+      src="https://www.wendermedia.com/wp-content/uploads/2023/06/webentwicklung-halle-saale-stadt-der-fuenf-tuerme.jpg"
+      alt="Luftaufnahme der Stadt Halle (Saale) mit den historischen fünf Türmen im Sonnenuntergang"
+      title="Halle (Saale) - Die Stadt der fünf Türme"
+      class="w-full h-full object-cover opacity-30 aspect-[16/9] transform-gpu"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      sizes="100vw"
+      srcset="
+        https://www.wendermedia.com/wp-content/uploads/2023/06/webentwicklung-halle-saale-stadt-der-fuenf-tuerme-640.jpg 640w,
+        https://www.wendermedia.com/wp-content/uploads/2023/06/webentwicklung-halle-saale-stadt-der-fuenf-tuerme-960.jpg 960w,
+        https://www.wendermedia.com/wp-content/uploads/2023/06/webentwicklung-halle-saale-stadt-der-fuenf-tuerme.jpg 1280w"
+    />
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-primary-900 opacity-90 dark:from-black dark:to-primary-950"></div>
+  </div>
+
+  <!-- Content Layer -->
+  <div class="container relative z-10 flex-1 flex items-center" style="contain: layout">
+    <div class="mx-auto max-w-3xl text-center py-24 px-4 sm:py-28 lg:py-32">
+      <div class="mb-8 flex justify-center">
+        <p class="relative rounded-full px-3 py-1 text-sm leading-6 text-white bg-accent-700 dark:bg-accent-600 hover-scale">
+          Über 18 Jahre Expertise in SEO
+        </p>
+      </div>
+      
+      <h1 id="hero-heading" class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white">
+        Ihre SEO Agentur in Halle
+        <span class="block text-white mt-2">Mehr Sichtbarkeit. Mehr Erfolg.</span>
+      </h1>
+      
+      <p class="mt-6 sm:mt-8 text-lg sm:text-xl leading-relaxed text-white">
+        Wir steigern Ihre Online-Präsenz mit datengetriebener Suchmaschinenoptimierung 
+        und innovativen SEO-Strategien. Profitieren Sie von unserer langjährigen Expertise.
+      </p>
+      
+      <div class="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+        <a href="#kontakt" class="btn btn-accent group hover-glow">
+          Kostenlose SEO-Analyse
+          <span class="ml-2 transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+        <a href="/ueber-uns/" class="btn bg-white/20 text-white hover:bg-white/30 dark:bg-white/10 dark:hover:bg-white/20 hover-lift w-full sm:w-auto justify-center">
+          Unsere Leistungen
+        </a>
+      </div>
+
+      <!-- Entfernt: Zahlen/Versprechen (500+, 98%, 24/7). Vermeidung irreführender Aussagen. -->
+    </div>
+  </div>
+  
+  <!-- Scroll Down Button -->
+  <div class="relative z-10 flex justify-center pb-8">
+    <button
+      type="button"
+      class="text-white p-2 rounded-full transition-all duration-300 hover:-translate-y-1 hover:text-accent-400 group animate-bounce"
+      aria-label="Zum nächsten Abschnitt scrollen"
+      onclick="document.getElementById('leistungen').scrollIntoView({behavior: 'smooth'})"
+    >
+      <Icon 
+        name="heroicons:chevron-double-down" 
+        class="w-8 h-8 transition-transform duration-300 group-hover:scale-110" 
+      />
+    </button>
+  </div>
+</section>

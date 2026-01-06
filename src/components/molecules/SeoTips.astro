@@ -1,0 +1,74 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const tips = [
+  {
+    title: "Warum SEO wichtig ist",
+    content: "92% aller Online-Erlebnisse beginnen mit einer Suchmaschine. Eine gute SEO-Strategie ist der Schlüssel zu mehr qualifiziertem Traffic.",
+    icon: "heroicons:light-bulb"
+  },
+  {
+    title: "Aktuelle SEO-Trends 2025",
+    items: [
+      "KI-optimierte Inhalte",
+      "Core Web Vitals",
+      "Mobile-First Indexing",
+      "E-A-T & helpful content"
+    ],
+    icon: "heroicons:chart-bar"
+  },
+  {
+    title: "Ihre Vorteile",
+    items: [
+      "Nachhaltige Sichtbarkeit",
+      "Bessere Nutzererfahrung",
+      "Messbare Entwicklung",
+      "Stärkere lokale Präsenz"
+    ],
+    icon: "heroicons:trophy"
+  }
+];
+
+// Hinweis: Zahlen und Bewertungen entfernt, um unzulässige oder unbelegte Aussagen zu vermeiden.
+const stats: Array<{ value: string; label: string }> = [];
+---
+
+<div class="space-y-8 reveal">
+  <!-- Trust indicators entfernt, um unbelegte oder irreführende Aussagen zu vermeiden. -->
+
+  <!-- SEO Tips -->
+  <div class="grid sm:grid-cols-3 gap-6">
+    {tips.map(tip => (
+      <div class="bg-white/10 dark:bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg border border-white/20 hover:bg-white/15 dark:hover:bg-gray-700/50 transition-colors">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="p-2 bg-accent-500/20 rounded-lg">
+            <Icon name={tip.icon} class="w-5 h-5 text-accent-400" />
+          </div>
+          <h4 class="font-medium text-white">{tip.title}</h4>
+        </div>
+        {tip.content && <p class="text-sm text-gray-200">{tip.content}</p>}
+        {tip.items && (
+          <ul class="space-y-2 mt-2">
+            {tip.items.map(item => (
+              <li class="flex items-center text-sm text-gray-200">
+                <Icon name="heroicons:check-circle" class="w-4 h-4 text-accent-400 mr-2" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ))}
+  </div>
+
+  {stats.length > 0 && (
+    <div class="grid sm:grid-cols-3 gap-6 mt-8">
+      {stats.map(stat => (
+        <div class="text-center bg-white/10 dark:bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg border border-white/20">
+          <p class="text-2xl font-bold text-accent-400">{stat.value}</p>
+          <p class="text-sm text-gray-200">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  )}
+</div>

@@ -1,0 +1,324 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --swiper-theme-color: theme(colors.primary.500);
+    --container-padding: 1rem;
+    --nav-height: 5rem;
+    --top-bar-height: 3rem;
+    --font-family-sans: 'Lexend Variable', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-serif: Georgia, 'Times New Roman', Times, serif;
+  }
+
+  @screen sm {
+    :root {
+      --container-padding: 1.5rem;
+    }
+  }
+
+  @screen lg {
+    :root {
+      --container-padding: 2rem;
+    }
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 8rem;
+    transition: font-family 0.3s ease-in-out;
+  }
+
+  /* Font families */
+  html.font-sans {
+    font-family: var(--font-family-sans);
+  }
+
+  html.font-serif {
+    font-family: var(--font-family-serif);
+  }
+
+  body {
+    @apply text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-900 transition-all duration-300;
+  }
+
+  /* Improved focus styles */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-700 dark:ring-primary-400 ring-offset-2 dark:ring-offset-gray-900;
+  }
+
+  /* Skip link */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-white dark:bg-gray-800 text-primary-700 dark:text-primary-400 px-4 py-2 z-50 rounded-lg shadow-lg;
+  }
+
+  /* Section styles */
+  section {
+    @apply relative w-full py-16 md:py-24 flex-shrink-0;
+  }
+
+  /* Enhanced hover effects */
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-[1.02];
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    @apply shadow-lg;
+    box-shadow: 0 0 20px rgba(var(--color-primary-500), 0.3);
+  }
+
+  /* Button interactions */
+  .btn {
+    @apply transform transition-all duration-300 active:scale-95;
+  }
+
+  .btn:hover {
+    @apply translate-y-[-2px] shadow-lg;
+  }
+
+  /* Card interactions */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  /* Icon animations */
+  .icon-spin {
+    @apply transition-transform duration-500 hover:rotate-180;
+  }
+
+  .icon-bounce {
+    @apply transition-transform duration-300 hover:translate-y-[-4px];
+  }
+
+  section.hero {
+    @apply py-0 min-h-[calc(100vh-8rem)] flex items-center;
+  }
+}
+
+/* Mobile menu animations */
+@keyframes menuEnter {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes menuLeave {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.animate-fade-in {
+  animation: menuEnter 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-fade-out {
+  animation: menuLeave 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes contentFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: contentFadeUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.2s;
+}
+
+@layer components {
+  /* Navigation animations */
+  .nav-link {
+    @apply relative text-gray-600 dark:text-gray-300 transition-colors duration-200;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-full h-0.5 bg-primary-600 dark:bg-primary-400 transform scale-x-0 origin-left transition-transform duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link[aria-current="page"]::after {
+    @apply scale-x-100;
+  }
+
+  .nav-link:hover {
+    @apply text-primary-600 dark:text-primary-400;
+  }
+
+  /* Mobile menu animations */
+  .mobile-menu-enter {
+    @apply transform translate-y-0 opacity-100;
+    animation: menuEnter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu-leave {
+    animation: menuLeave 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .container {
+    @apply mx-auto max-w-7xl;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium transition-all duration-300 relative overflow-hidden;
+  }
+
+  .btn::after {
+    @apply absolute inset-0 w-full h-full bg-white/20 transform scale-x-0 origin-left transition-transform duration-300 ease-out content-[''];
+  }
+
+  .btn:hover::after {
+    @apply scale-x-100;
+  }
+
+  .btn-primary {
+    @apply bg-primary-700 text-white hover:bg-primary-800 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary-700 focus:ring-offset-2 shadow-lg shadow-primary-700/20 dark:bg-primary-600 dark:hover:bg-primary-700 dark:shadow-primary-900/30;
+  }
+
+  .btn-accent {
+    @apply bg-accent-700 text-white hover:bg-accent-800 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent-700 focus:ring-offset-2 shadow-lg shadow-accent-700/20 dark:bg-accent-600 dark:hover:bg-accent-700 dark:shadow-accent-900/30;
+  }
+
+  /* Card hover effects */
+  .hover-card {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-white dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-gray-700;
+  }
+
+  /* Smooth reveal animations */
+  .reveal {
+    @apply opacity-0 translate-y-8 transition-all duration-700;
+  }
+
+  /* Enhanced reveal animations */
+  .reveal-left {
+    @apply opacity-0 -translate-x-8 transition-all duration-700;
+  }
+
+  .reveal-right {
+    @apply opacity-0 translate-x-8 transition-all duration-700;
+  }
+
+  .reveal-scale {
+    @apply opacity-0 scale-95 transition-all duration-700;
+  }
+
+  .active {
+    @apply opacity-100 translate-x-0 translate-y-0 scale-100;
+  }
+
+  .reveal.active {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Micro-interactions for form elements */
+  input, textarea, select {
+    @apply transition-all duration-200 ease-out bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    @apply transform scale-[1.02] dark:ring-primary-500;
+  }
+
+  /* Icon hover effects */
+  .icon-hover {
+    @apply transition-transform duration-300 ease-out hover:scale-110;
+  }
+
+  /* Link hover effect */
+  .link-hover {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-current after:transform after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100;
+  }
+}
+
+/* Intersection Observer Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-scale {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.5s ease-out forwards;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+#topBar {
+  @apply transition-all duration-300;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Safe area padding for mobile devices */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}

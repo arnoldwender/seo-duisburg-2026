@@ -1,0 +1,42 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<button
+  type="button"
+  id="darkModeToggle"
+  class="text-sm flex items-center hover:text-accent-400 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 rounded-lg"
+  aria-label="Dunkelmodus umschalten"
+>
+  <Icon name="heroicons:moon" class="w-4 h-4 mr-1 dark:hidden" />
+  <Icon name="heroicons:sun" class="w-4 h-4 mr-1 hidden dark:block" />
+  <span class="dark:hidden">Dunkel</span>
+  <span class="hidden dark:block">Hell</span>
+</button>
+
+<script>
+  function updateDarkMode(isDark: boolean) {
+    document.documentElement.classList.toggle('dark', isDark);
+    localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+    
+    const announcement = document.createElement('div');
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.className = 'sr-only';
+    announcement.textContent = `Theme wurde zu ${isDark ? 'Dunkel' : 'Hell'} geändert`;
+    document.body.appendChild(announcement);
+    setTimeout(() => announcement.remove(), 1000);
+  }
+
+  document.getElementById('darkModeToggle')?.addEventListener('click', () => {
+    const isDark = !document.documentElement.classList.contains('dark');
+    updateDarkMode(isDark);
+  });
+
+  // Initialize dark mode
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedDarkMode = localStorage.getItem('darkMode');
+    const isDark = savedDarkMode === 'dark';
+    updateDarkMode(isDark);
+  });
+</script>

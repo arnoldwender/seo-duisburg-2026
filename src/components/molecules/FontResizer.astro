@@ -1,0 +1,87 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="flex items-center space-x-2" role="group" aria-label="Schriftgröße anpassen">
+  <button
+    type="button"
+    id="decreaseFontSize"
+    class="text-sm hover:text-accent-400 transition-colors p-1 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 rounded-lg"
+    aria-label="Schriftgröße verkleinern"
+  >
+    A-
+  </button>
+  <button
+    type="button"
+    id="increaseFontSize"
+    class="text-sm hover:text-accent-400 transition-colors p-1 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 rounded-lg"
+    aria-label="Schriftgröße vergrößern"
+  >
+    A+
+  </button>
+</div>
+
+<script>
+  class FontResizerManager {
+    private currentFontSize: number = 16;
+    private readonly minFontSize: number = 14;
+    private readonly maxFontSize: number = 20;
+    private readonly fontSizeStep: number = 1;
+
+    private readonly elements = {
+      html: document.documentElement,
+      increaseFontSize: document.getElementById('increaseFontSize'),
+      decreaseFontSize: document.getElementById('decreaseFontSize')
+    };
+
+    constructor() {
+      this.initializeEventListeners();
+      this.loadSavedFontSize();
+    }
+
+    private announce(message: string): void {
+      const announcement = document.createElement('div');
+      announcement.setAttribute('role', 'status');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.className = 'sr-only';
+      announcement.textContent = message;
+      document.body.appendChild(announcement);
+      setTimeout(() => announcement.remove(), 1000);
+    }
+
+    private updateFontSize(size: number): void {
+      this.elements.html.style.fontSize = `${size}px`;
+      localStorage.setItem('fontSize', size.toString());
+      this.announce(`Schriftgröße wurde auf ${size}px geändert`);
+    }
+
+    private initializeEventListeners(): void {
+      this.elements.increaseFontSize?.addEventListener('click', () => {
+        if (this.currentFontSize < this.maxFontSize) {
+          this.currentFontSize += this.fontSizeStep;
+          this.updateFontSize(this.currentFontSize);
+        }
+      });
+
+      this.elements.decreaseFontSize?.addEventListener('click', () => {
+        if (this.currentFontSize > this.minFontSize) {
+          this.currentFontSize -= this.fontSizeStep;
+          this.updateFontSize(this.currentFontSize);
+        }
+      });
+    }
+
+    private loadSavedFontSize(): void {
+      const savedFontSize = localStorage.getItem('fontSize');
+      if (savedFontSize) {
+        this.currentFontSize = parseInt(savedFontSize);
+        this.updateFontSize(this.currentFontSize);
+      }
+    }
+  }
+
+  // Initialize font resizer when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    new FontResizerManager();
+  });
+</script>

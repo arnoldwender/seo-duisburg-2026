@@ -1,0 +1,18 @@
+---
+import Logo from '../atoms/Logo.astro';
+import MainNav from '../molecules/MainNav.astro';
+import MobileNav from '../molecules/MobileNav.astro';
+
+---
+
+<header
+  class="fixed top-0 left-0 right-0 w-full backdrop-blur-sm shadow-sm transition-all duration-500 ease-in-out border-b border-gray-200/10 z-40 bg-white/95 dark:bg-gray-900/95"
+  style="height: var(--nav-height); contain: layout paint"
+  id="mainHeader"
+>
+  <div class="container h-full flex items-center justify-between gap-4">
+    <Logo class="flex-shrink-0" />
+    <MainNav class="hidden md:flex" />
+    <MobileNav />
+  </div>
+</header>

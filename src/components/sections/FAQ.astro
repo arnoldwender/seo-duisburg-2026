@@ -1,0 +1,93 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const faqs = [
+  {
+    question: "Wie lange dauert es, bis SEO Ergebnisse sichtbar werden?",
+    answer: "Die ersten Verbesserungen sind meist nach 3-6 Monaten sichtbar. Nachhaltige Rankings entwickeln sich über 6-12 Monate kontinuierlicher SEO-Arbeit. Wichtige Faktoren sind dabei:",
+    items: [
+      "Alter und Autorität Ihrer Website",
+      "Wettbewerbssituation in Ihrer Branche",
+      "Qualität und Häufigkeit der Optimierungen",
+      "Ihr SEO-Budget und Ressourceneinsatz"
+    ]
+  },
+  {
+    question: "Was kostet professionelle SEO in Halle?",
+    answer: "Unsere SEO-Pakete beginnen bei 500€ monatlich. Der genaue Preis hängt von Ihren individuellen Anforderungen und Zielen ab. Wir bieten:",
+    items: [
+      "Flexible monatliche Pakete ab 500€",
+      "Einmalige SEO-Audits ab 299€",
+      "Content-Erstellung ab 0,15€ pro Wort",
+      "Individuelle Enterprise Lösungen"
+    ]
+  },
+  {
+    question: "Warum ist lokales SEO für Unternehmen in Halle wichtig?",
+    answer: "Lokales SEO hilft Ihnen, in den lokalen Suchergebnissen für Halle (Saale) und Umgebung besser gefunden zu werden. Viele Suchanfragen haben einen lokalen Bezug. Die Vorteile:",
+    items: [
+      "Bessere Sichtbarkeit in lokalen Suchergebnissen",
+      "Höhere Conversion-Rate bei lokalen Kunden",
+      "Stärkere Präsenz im Google Business Profile",
+      "Gezielte Ansprache Ihrer lokalen Zielgruppe"
+    ]
+  },
+  {
+    question: "Welche SEO-Leistungen bietet SEO-Halle an?",
+    answer: "Wir bieten ein umfassendes Portfolio an SEO-Dienstleistungen:",
+    items: [
+      "Technische Website-Optimierung",
+      "Content-Strategie und -Erstellung",
+      "Lokales SEO für Halle und Umgebung",
+      "Keyword-Recherche und Wettbewerbsanalyse",
+      "SEO-Audits und Performance-Tracking"
+    ]
+  }
+];
+---
+
+<section class="py-24 bg-gray-50 dark:bg-gray-900" aria-labelledby="faq-title">
+  <div class="container">
+    <header class="text-center max-w-3xl mx-auto mb-16">
+      <h2 id="faq-title" class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+        Häufig gestellte Fragen zur SEO
+      </h2>
+      <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
+        Finden Sie Antworten auf die wichtigsten Fragen rund um Suchmaschinenoptimierung und unsere SEO-Dienstleistungen in Halle.
+      </p>
+    </header>
+
+    <div class="max-w-4xl mx-auto">
+      <dl class="space-y-8">
+        {faqs.map((faq) => (
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm card-hover">
+            <dt class="text-lg font-semibold text-gray-900 dark:text-white flex items-start gap-4">
+              <Icon name="heroicons:question-mark-circle" class="w-6 h-6 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-1 icon-bounce" />
+              {faq.question}
+            </dt>
+            <dd class="mt-4 ml-10">
+              <p class="text-gray-600 dark:text-gray-300">{faq.answer}</p>
+              {faq.items && (
+                <ul class="mt-4 space-y-2">
+                  {faq.items.map((item) => (
+                    <li class="flex items-start gap-2 text-gray-600 dark:text-gray-300 hover-scale">
+                      <Icon name="heroicons:check" class="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <footer class="mt-16 text-center">
+      <p class="text-gray-600 dark:text-gray-300 mb-8">Haben Sie weitere Fragen? Kontaktieren Sie uns!</p>
+      <a href="#kontakt" class="btn btn-primary">
+        Kostenlose SEO-Beratung vereinbaren
+      </a>
+    </footer>
+  </div>
+</section>

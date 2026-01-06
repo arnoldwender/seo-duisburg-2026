@@ -1,0 +1,22 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  phone: string;
+  class?: string;
+}
+
+const { phone, class: className } = Astro.props;
+---
+
+<a 
+  href={`tel:${phone}`} 
+  class:list={[
+    "flex items-center text-sm hover:text-accent-400 transition-colors whitespace-nowrap",
+    className
+  ]}
+  aria-label="Rufen Sie uns an"
+>
+  <Icon name="heroicons:phone" class="w-4 h-4 mr-2" />
+  <span>{phone}</span>
+</a>

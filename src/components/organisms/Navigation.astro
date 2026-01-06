@@ -1,0 +1,128 @@
+---
+import Logo from '../atoms/Logo.astro';
+import MainNav from '../molecules/MainNav.astro';
+import MobileNav from '../molecules/MobileNav.astro';
+import AccessibilityTools from '../molecules/AccessibilityTools.astro';
+import ContactButton from '../molecules/ContactButton.astro';
+
+const phone = "0151-4193-2856";
+---
+
+<div 
+  class="fixed top-0 left-0 right-0 z-50 flex flex-col transform-gpu will-change-transform bg-white/95 dark:bg-gray-900/95 transition-transform duration-300 ease-out" 
+  style="height: calc(var(--nav-height) + var(--top-bar-height))"
+>
+  <div 
+    class="bg-primary-900 text-white flex items-center dark:bg-gray-950 transition-all duration-500 ease-in-out" 
+    id="topBar"
+    style="height: var(--top-bar-height)"
+  >
+    <div class="container">
+      <div class="flex flex-row justify-between items-center gap-2">
+        <ContactButton phone={phone} />
+        <AccessibilityTools />
+      </div>
+    </div>
+  </div>
+
+  <header 
+    class="w-full backdrop-blur-sm shadow-sm transition-all duration-500 ease-in-out border-b border-gray-200/10 relative" 
+    style="height: var(--nav-height); contain: layout paint"
+    id="mainHeader"
+  >
+    <div class="container h-full flex items-center justify-between gap-4">
+      <Logo />
+      <nav class="flex items-center gap-4" aria-label="Hauptnavigation">
+        <MainNav class="hidden md:flex" />
+        <MobileNav />
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script>
+  let lastScroll = 0;
+  let scrollTimeout: number;
+  const scrollThreshold = 100;
+  let isAnimating = false;
+  
+  const nav = document.querySelector('div[role="navigation"]');
+  const topBar = document.getElementById('topBar');
+  const header = document.querySelector('header');
+  
+  const handleScroll = () => {
+    const currentScroll = window.pageYOffset;
+
+    // Prevent multiple animations from running simultaneously
+    if (isAnimating) {
+      return;
+    }
+    
+    if (currentScroll <= scrollThreshold) {
+      nav?.classList.remove('-translate-y-full');
+      header?.classList.remove('shadow-lg');
+      header?.classList.add('shadow-sm');
+      topBar?.classList.remove('opacity-80');
+      return;
+    }
+    
+    const isScrollingDown = currentScroll > lastScroll;
+    const isNavVisible = !nav?.classList.contains('-translate-y-full');
+    
+    if (isScrollingDown && isNavVisible) {
+      isAnimating = true;
+      nav?.classList.add('-translate-y-full');
+      header?.classList.add('shadow-lg');
+      header?.classList.remove('shadow-sm');
+      setTimeout(() => { isAnimating = false; }, 300);
+    } else if (!isScrollingDown && !isNavVisible) {
+      isAnimating = true;
+      nav?.classList.remove('-translate-y-full');
+      header?.classList.add('shadow-lg');
+      requestAnimationFrame(() => {
+        header?.style.setProperty('transform', 'translateZ(0)');
+      });
+      header?.classList.remove('shadow-sm');
+      topBar?.classList.add('opacity-80');
+      setTimeout(() => { isAnimating = false; }, 300);
+    }
+    
+    lastScroll = currentScroll;
+  };
+  
+  // Optimized scroll handler with debounce and RAF
+  let rafId: number;
+  let isThrottled = false;
+  const throttleDelay = 150;
+
+  window.addEventListener('scroll', () => {
+    if (isThrottled) return;
+    
+    isThrottled = true;
+    setTimeout(() => { isThrottled = false; }, throttleDelay);
+    
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+    }
+    
+    rafId = requestAnimationFrame(handleScroll);
+  }, { passive: true });
+
+  // Initial check
+  handleScroll();
+
+  // Add intersection observer for scroll-up trigger zones
+  const createScrollTrigger = () => {
+    const triggerZone = document.createElement('div');
+    triggerZone.style.position = 'fixed';
+    triggerZone.style.top = '0';
+    triggerZone.style.left = '0';
+    triggerZone.style.right = '0';
+    triggerZone.style.height = '20px';
+    triggerZone.style.pointerEvents = 'none';
+    document.body.appendChild(triggerZone);
+    return triggerZone;
+  };
+
+  const triggerZone = createScrollTrigger();
+</script>

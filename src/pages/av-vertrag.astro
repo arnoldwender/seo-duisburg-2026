@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/organisms/Footer.astro';
+import Breadcrumbs from '../components/molecules/Breadcrumbs.astro';
+import PageHeader from '../components/molecules/PageHeader.astro';
+
+const title = "Auftragsverarbeitungsvertrag - SEO Halle";
+const description = "Auftragsverarbeitungsvertrag (AVV) der SEO-Agentur Halle gemäß Art. 28 DSGVO.";
+const keywords = [
+  'Auftragsverarbeitungsvertrag',
+  'AVV',
+  'Art. 28 DSGVO',
+  'SEO Halle AVV'
+];
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  <main id="main" tabindex="-1" class="pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <div class="container">
+      <Breadcrumbs items={[
+        { name: 'Startseite', href: '/' },
+        { name: 'AV-Vertrag', href: '/av-vertrag/' },
+      ]} />
+
+      <PageHeader badge="Datenschutz" title="Auftragsverarbeitungsvertrag (AVV)" description="Vereinbarung gemäß Art. 28 DSGVO zur Verarbeitung personenbezogener Daten im Auftrag." />
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm">
+          <nav id="toc-container-avv" data-toc-threshold="3" aria-label="Inhaltsverzeichnis" class="mb-8 bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
+            <details class="group" open>
+              <summary class="cursor-pointer text-sm font-semibold text-gray-900 dark:text-white">Inhaltsverzeichnis</summary>
+              <ul id="toc-list-avv" class="mt-3 space-y-2 text-sm text-gray-700 dark:text-gray-300"></ul>
+              <div class="mt-3">
+                <a href="#main" class="inline-flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">↑ Nach oben</a>
+              </div>
+            </details>
+          </nav>
+          <div id="legal-content-avv" class="prose prose-lg max-w-none dark:prose-invert">
+        <h2>Vereinbarung zur Auftragsverarbeitung gemäß Art. 28 DSGVO</h2>
+        <p>zwischen</p>
+        <p>
+          dem Auftraggeber (nachfolgend "Verantwortlicher")<br />
+          und<br />
+          Arnold Wender<br />
+          Wender Media<br />
+          Franckestraße 3a<br />
+          06110 Halle (Saale)<br />
+          (nachfolgend "Auftragsverarbeiter")
+        </p>
+
+        <h2>1. Gegenstand und Dauer der Verarbeitung</h2>
+        <p>Der Auftragsverarbeiter verarbeitet personenbezogene Daten im Auftrag des Verantwortlichen. Dies umfasst Tätigkeiten, die im Hauptvertrag und in der Leistungsbeschreibung konkretisiert sind.</p>
+
+        <h2>2. Art und Zweck der Verarbeitung</h2>
+        <p>Die Verarbeitung umfasst folgende Arten von personenbezogenen Daten:</p>
+        <ul>
+          <li>Kontaktdaten (Name, Adresse, E-Mail, Telefon)</li>
+          <li>Vertragsdaten</li>
+          <li>Nutzungsdaten der Website</li>
+          <li>Kommunikationsdaten</li>
+        </ul>
+
+        <h2>3. Pflichten des Auftragsverarbeiters</h2>
+        <p>Der Auftragsverarbeiter verarbeitet personenbezogene Daten ausschließlich im Rahmen der getroffenen Vereinbarungen und nach Weisungen des Verantwortlichen.</p>
+
+        <h2>4. Technische und organisatorische Maßnahmen</h2>
+        <p>Der Auftragsverarbeiter hat die Umsetzung der vereinbarten technischen und organisatorischen Maßnahmen vor Beginn der Verarbeitung zu dokumentieren und dem Verantwortlichen zur Prüfung zu übergeben.</p>
+
+        <h2>5. Berichtigung, Löschung und Sperrung von Daten</h2>
+        <p>Der Auftragsverarbeiter hat nur nach Weisung des Verantwortlichen die Daten, die im Auftrag verarbeitet werden, zu berichtigen, zu löschen oder zu sperren.</p>
+
+        <h2>6. Kontrollrechte des Verantwortlichen</h2>
+        <p>Der Verantwortliche hat das Recht, die vereinbarten technischen und organisatorischen Maßnahmen des Auftragsverarbeiters zu überprüfen oder durch im Einzelfall zu benennende Prüfer überprüfen zu lassen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  const content = document.getElementById('legal-content-avv');
+  const list = document.getElementById('toc-list-avv');
+  const toc = document.getElementById('toc-container-avv');
+  function slugify(input: string) {
+    let s = (input || '').toString().trim().toLowerCase();
+    try { s = s.normalize('NFKD').replace(/[\u0300-\u036f]/g, ''); } catch {}
+    s = s.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+         .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    return s || 'abschnitt';
+  }
+  if (content && list) {
+    const headings = content.querySelectorAll('h2');
+    let threshold = 3;
+    if (toc) {
+      const attr = toc.getAttribute('data-toc-threshold') || '';
+      const parsed = parseInt(attr, 10);
+      if (!Number.isNaN(parsed) && parsed > 0) threshold = parsed;
+    }
+    if (headings.length < threshold) {
+      if (toc) toc.style.display = 'none';
+    } else {
+      headings.forEach((h, idx) => {
+      const text = (h.textContent || '').trim() || `Abschnitt ${idx + 1}`;
+      let id = h.id || slugify(text); let unique = id; let i = 2;
+      while (document.getElementById(unique)) unique = `${id}-${i++}`;
+      h.id = unique;
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${unique}`; a.textContent = text;
+      a.className = 'hover:text-primary-600 dark:hover:text-primary-400';
+      li.appendChild(a); list.appendChild(li);
+      const small = document.createElement('a');
+      small.href = '#main'; small.textContent = '↑ Top';
+      small.className = 'ml-2 align-middle text-xs text-gray-400 hover:text-primary-500 dark:text-gray-500 dark:hover:text-primary-400';
+      h.appendChild(small);
+      });
+    }
+  }
+</script>

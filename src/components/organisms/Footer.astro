@@ -1,0 +1,178 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from '../atoms/Logo.astro';
+
+const navigation = {
+  main: [
+    { name: 'Über uns', href: '/ueber-uns/' },
+    { name: 'Zahlungsoptionen', href: '/zahlungsoptionen/' },
+    { name: 'Kostenvoranschlag', href: '/kostenvoranschlag/' },
+    { name: 'SEO Blog', href: 'https://seo-halle.de/blog/' },
+    { name: 'Öffnungszeiten', href: '/oeffnungszeiten/' },
+    { name: 'Standort', href: '/standort/' },
+    { name: 'Sitemap', href: '/sitemap/' },
+  ],
+  legal: [
+    { name: 'Impressum', href: '/impressum/' },
+  { name: 'Datenschutz', href: '/datenschutz/' },
+  { name: 'Cookies', href: '/cookies/' },
+  { name: 'AGB', href: '/agb/' },
+    { name: 'AV-Vertrag', href: '/av-vertrag/' },
+  ],
+  social: [
+    { name: 'Facebook', href: 'https://www.facebook.com/seohalle', icon: 'simple-icons:facebook' },
+    { name: 'Twitter', href: 'https://twitter.com/seohalle', icon: 'simple-icons:twitter' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/seo-halle', icon: 'simple-icons:linkedin' },
+  ]
+};
+
+const contact = {
+  name: 'Arnold Wender',
+  company: 'Wender Media',
+  address: ['Franckestraße 3a', '06110 Halle (Saale)', 'Sachsen-Anhalt', 'Deutschland'],
+  phone: {
+    mobile: '0151-4193-2856',
+    landline: '0345-6867-6857',
+    fax: '0345-6867-6859'
+  },
+  email: 'info@seo-halle.de',
+  hours: 'MO-FR | 09:00 - 15:00 Uhr',
+  languages: ['Deutsch', 'Spanisch', 'Englisch'],
+  payment: ['Rechnung', 'PayPal', 'Kreditkarten (PayPal)', 'Finanzierung']
+};
+---
+
+<footer class="relative overflow-hidden bg-[#002242]">
+  <div class="absolute inset-0 bg-gradient-to-br from-[#002242] to-[#003c74] opacity-50"></div>
+  
+  <div class="container relative pt-16 pb-16">
+    <div class="grid grid-cols-1 gap-8 xl:grid-cols-4 opacity-0 translate-y-8 transition-all duration-700" data-reveal>
+      <!-- Company Info -->
+      <div class="xl:col-span-1 group">
+        <Logo variant="white" class="h-12 w-auto brightness-80 mb-6" />
+        <p class="text-gray-300 mb-6">
+          SEO Agentur aus Halle (Saale). Ich optimiere Webseiten und Online-Shops und biete SEO-Webdesign für jedes Budget.
+        </p>
+        <div class="flex space-x-4">
+          {navigation.social.map((item) => (
+            <a
+              href={item.href}
+              class="text-gray-400 hover:text-accent-400 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:bg-white/5 p-2 rounded-full transform"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Besuchen Sie uns auf ${item.name}`}
+            >
+              <Icon name={item.icon} class="h-6 w-6" aria-hidden="true" />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="xl:col-span-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-white font-semibold mb-4">Kontakt</h3>
+            <div class="space-y-3">
+              <p class="text-gray-300 font-medium">{contact.name}</p>
+              <div class="space-y-2">
+                <a href={`tel:${contact.phone.mobile}`} class="group block text-gray-400 hover:text-accent-400 transition-colors">
+                  <Icon name="heroicons:phone" class="inline-block w-4 h-4 mr-2 transition-transform group-hover:scale-110" />
+                  Mobil: {contact.phone.mobile}
+                </a>
+                <a href={`tel:${contact.phone.landline}`} class="group block text-gray-400 hover:text-accent-400 transition-colors">
+                  <Icon name="heroicons:building-office-2" class="inline-block w-4 h-4 mr-2 transition-transform group-hover:scale-110" />
+                  Tel: {contact.phone.landline}
+                </a>
+                <p class="text-gray-400">
+                  <Icon name="heroicons:printer" class="inline-block w-4 h-4 mr-2" />
+                  Fax: {contact.phone.fax}
+                </p>
+                <p class="text-gray-400 mt-4">
+                  <Icon name="heroicons:clock" class="inline-block w-4 h-4 mr-2" />
+                  {contact.hours}
+                </p>
+                <p class="pt-4 text-sm text-gray-400">Termine nur nach Vereinbarung</p>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  {contact.languages.map((language) => (
+                    <span class="px-2 py-1 bg-[#003972] text-gray-300 rounded-full text-sm hover-card">
+                      {language}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-white font-semibold mb-4">Direktlinks</h3>
+            <ul class="space-y-2">
+              {navigation.main.map((item) => (
+                <li>
+                  <a href={item.href} class="group text-gray-400 hover:text-primary-400 transition-colors duration-300 inline-flex items-center">
+                    <span class="relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary-400 after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 group-hover:after:scale-x-100">{item.name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-4">Zahlungsoptionen</h3>
+        <ul class="space-y-2">
+          {contact.payment.map((method) => (
+            <li class="text-gray-400 group">
+              <Icon name="heroicons:check" class="inline-block w-4 h-4 mr-2 text-accent-400 transition-transform group-hover:translate-x-1" />
+              {method}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 py-8 border-t border-[#003972]">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center opacity-0 translate-y-8 transition-all duration-700" data-reveal>
+        <div class="text-sm text-gray-400">
+          © Copyright 2007 - {new Date().getFullYear()} {contact.company} - Alle Rechte vorbehalten.
+        </div>
+        <div class="flex justify-start md:justify-end space-x-6">
+          {navigation.legal.map((item) => (
+            <a 
+              href={item.href} 
+              class="text-sm text-gray-400 hover:text-primary-400 transition-colors duration-300 group inline-flex items-center"
+            >
+              <span class="relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary-400 after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 group-hover:after:scale-x-100">
+                {item.name}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for reveal animations
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('opacity-100', 'translate-y-0');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all elements with data-reveal attribute
+  document.querySelectorAll('[data-reveal]').forEach((element) => {
+    observer.observe(element);
+  });
+</script>

@@ -1,0 +1,58 @@
+---
+// LocalBusiness schema is now emitted site-wide from Layout via SchemaLocalBusiness.astro
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "https://seo-halle.de",
+  "name": "SEO-Halle.de",
+  "inLanguage": "de-DE",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://seo-halle.de/suche?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Wie lange dauert es, bis SEO Ergebnisse sichtbar werden?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die ersten Verbesserungen sind meist nach 3-6 Monaten sichtbar. Nachhaltige Rankings entwickeln sich über 6-12 Monate kontinuierlicher SEO-Arbeit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was kostet professionelle SEO in Halle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unsere SEO-Pakete beginnen bei 500€ monatlich. Der genaue Preis hängt von Ihren individuellen Anforderungen und Zielen ab."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Warum ist lokales SEO für Unternehmen in Halle wichtig?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lokales SEO hilft Ihnen, in den lokalen Suchergebnissen für Halle (Saale) und Umgebung besser gefunden zu werden. 46% aller Google-Suchen haben einen lokalen Bezug."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche SEO-Leistungen bietet SEO-Halle an?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wir bieten technisches SEO, Content-Optimierung, lokales SEO, OnPage-SEO, Keyword-Recherche und umfassende SEO-Strategien für Unternehmen in Halle und Umgebung."
+      }
+    }
+  ]
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

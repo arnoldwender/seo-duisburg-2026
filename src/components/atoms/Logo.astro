@@ -1,0 +1,82 @@
+---
+interface Props {
+  class?: string;
+  variant?: 'default' | 'white';
+}
+
+const { class: className, variant = 'default' } = Astro.props;
+
+// Raster logo assets with multiple formats for optimal delivery
+const logo = {
+  light: {
+    avif: "/images/logo-seo-halle.avif",
+    webp: "/images/logo-seo-halle.webp",
+    png: "/images/logo-seo-halle.png",
+  },
+  dark: {
+    avif: "/images/logo-seo-halle-weiss.avif",
+    webp: "/images/logo-seo-halle-weiss.webp",
+    png: "/images/logo-seo-halle-weiss.png",
+  }
+};
+---
+
+<a 
+  href="/" 
+  class:list={[
+    "block transition-opacity duration-200 hover:opacity-90",
+    className
+  ]} 
+  aria-label="SEO Halle"
+>
+  {variant === 'default' ? (
+    <>
+      <!-- Light by default -->
+      <picture class="block dark:hidden">
+        <source srcset={logo.light.avif} type="image/avif" />
+        <source srcset={logo.light.webp} type="image/webp" />
+        <img
+          src={logo.light.png}
+          alt="SEO Halle Logo"
+          title="SEO Halle - Ihre SEO Agentur in Halle"
+          class="h-14 w-auto"
+          width="150"
+          height="50"
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
+
+      <!-- Switch to white logo when Tailwind dark class is active -->
+      <picture class="hidden dark:block">
+        <source srcset={logo.dark.avif} type="image/avif" />
+        <source srcset={logo.dark.webp} type="image/webp" />
+        <img
+          src={logo.dark.png}
+          alt="SEO Halle Logo"
+          title="SEO Halle - Ihre SEO Agentur in Halle"
+          class="h-14 w-auto"
+          width="150"
+          height="50"
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
+    </>
+  ) : (
+    <picture>
+      <source srcset={logo.dark.avif} type="image/avif" />
+      <source srcset={logo.dark.webp} type="image/webp" />
+      <img
+        src={logo.dark.png}
+        alt="SEO Halle Logo"
+        title="SEO Halle - Ihre SEO Agentur in Halle"
+        class="h-12 w-auto"
+        width="150"
+        height="50"
+        loading="eager"
+        decoding="async"
+      />
+    </picture>
+  )}
+</a>

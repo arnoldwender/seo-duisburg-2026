@@ -1,0 +1,64 @@
+---
+---
+
+<div class="flex items-center space-x-2" role="group" aria-label="Schriftgröße anpassen">
+  <button
+    type="button"
+    id="decreaseFontSize"
+    class="text-sm hover:text-accent-400 transition-colors p-1 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 rounded-lg"
+    aria-label="Schriftgröße verkleinern"
+  >
+    A-
+  </button>
+  <button
+    type="button"
+    id="increaseFontSize"
+    class="text-sm hover:text-accent-400 transition-colors p-1 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 rounded-lg"
+    aria-label="Schriftgröße vergrößern"
+  >
+    A+
+  </button>
+</div>
+
+<script>
+  let currentFontSize = 16;
+  const minFontSize = 14;
+  const maxFontSize = 20;
+  const fontSizeStep = 1;
+
+  function updateFontSize(size: number) {
+    document.documentElement.style.fontSize = `${size}px`;
+    localStorage.setItem('fontSize', size.toString());
+    
+    const announcement = document.createElement('div');
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.className = 'sr-only';
+    announcement.textContent = `Schriftgröße wurde auf ${size}px geändert`;
+    document.body.appendChild(announcement);
+    setTimeout(() => announcement.remove(), 1000);
+  }
+
+  document.getElementById('increaseFontSize')?.addEventListener('click', () => {
+    if (currentFontSize < maxFontSize) {
+      currentFontSize += fontSizeStep;
+      updateFontSize(currentFontSize);
+    }
+  });
+
+  document.getElementById('decreaseFontSize')?.addEventListener('click', () => {
+    if (currentFontSize > minFontSize) {
+      currentFontSize -= fontSizeStep;
+      updateFontSize(currentFontSize);
+    }
+  });
+
+  // Initialize font size
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedFontSize = localStorage.getItem('fontSize');
+    if (savedFontSize) {
+      currentFontSize = parseInt(savedFontSize);
+      updateFontSize(currentFontSize);
+    }
+  });
+</script>

@@ -1,0 +1,19 @@
+---
+import { Icon } from 'astro-icon/components';
+import DarkModeToggle from './DarkModeToggle.astro';
+import FontSizeControls from './FontSizeControls.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["flex items-center gap-2 sm:gap-4", className]} role="toolbar" aria-label="Barrierefreiheit-Werkzeuge">
+  <!-- Font Size Controls -->
+  <FontSizeControls />
+
+  <!-- Dark Mode Toggle -->
+  <DarkModeToggle />
+</div>

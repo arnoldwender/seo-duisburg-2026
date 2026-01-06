@@ -1,0 +1,91 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div id="consentBanner" class:list={["fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 p-4 shadow-lg transform translate-y-full transition-transform duration-300 z-50", className]}>
+  <div class="container flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="p-2 bg-primary-100 dark:bg-primary-900/50 rounded-lg">
+        <Icon name="heroicons:map" class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Um Ihnen die Karte anzuzeigen, werden Daten an Google übermittelt. 
+        Bitte stimmen Sie der Datenübertragung zu.
+      </p>
+    </div>
+    <div class="flex gap-3">
+      <button
+        type="button"
+        id="rejectConsent"
+        class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+      >
+        Ablehnen
+      </button>
+      <button
+        type="button"
+        id="acceptConsent"
+        class="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
+      >
+        Zustimmen
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('consentBanner');
+  const acceptBtn = document.getElementById('acceptConsent');
+  const rejectBtn = document.getElementById('rejectConsent');
+  const mapContainer = document.getElementById('mapContainer');
+  
+  // Show banner if consent status is unknown
+  if (!localStorage.getItem('mapsConsent')) {
+    banner?.classList.remove('translate-y-full');
+  }
+  
+  // Handle consent acceptance
+  acceptBtn?.addEventListener('click', () => {
+    localStorage.setItem('mapsConsent', 'accepted');
+    banner?.classList.add('translate-y-full');
+    
+    // Load map if container exists
+    if (mapContainer) {
+      loadMap();
+    }
+  });
+  
+  // Handle consent rejection
+  rejectBtn?.addEventListener('click', () => {
+    localStorage.setItem('mapsConsent', 'rejected');
+    banner?.classList.add('translate-y-full');
+  });
+  
+  // Map loading function
+  function loadMap() {
+    // Re-query to satisfy type-checking and runtime safety
+    const container = document.getElementById('mapContainer');
+    if (!container) return;
+    const iframe = document.createElement('iframe');
+  // NOTE: For exact entrance 'Franckestraße 3a', consider updating this embed to a fresh Google Maps URL for the new address.
+  iframe.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2465.5887633346424!2d11.967876776678611!3d51.48250571561465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a66344b5da2f5d%3A0x4b3d0b8a41a1d0de!2sFranckestr.%203a%2C%2006110%20Halle%20(Saale)!5e0!3m2!1sde!2sde!4v1708440221549!5m2!1sde!2sde";
+    iframe.width = "100%";
+    iframe.height = "100%";
+    iframe.style.border = "0";
+    iframe.loading = "lazy";
+    iframe.referrerPolicy = "no-referrer-when-downgrade";
+    iframe.title = "Google Maps Standort SEO Halle";
+    container.innerHTML = '';
+    container.appendChild(iframe);
+  }
+  
+  // Check consent status and load map if accepted
+  if (localStorage.getItem('mapsConsent') === 'accepted' && mapContainer) {
+    loadMap();
+  }
+</script>

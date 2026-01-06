@@ -1,0 +1,52 @@
+---
+import SimpleContactForm from '../molecules/SimpleContactForm.astro';
+import CTAContent from '../molecules/CTAContent.astro';
+import SeoTips from '../molecules/SeoTips.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  features?: string[];
+}
+
+const { 
+  title = "Lassen Sie uns Ihr Projekt besprechen",
+  description = "Erzählen Sie uns von Ihrem Projekt und wir melden uns innerhalb von 24 Stunden bei Ihnen zurück. Oder rufen Sie uns direkt an, wir freuen uns auf das Gespräch mit Ihnen.",
+  features = [
+    "Kostenlose Erstberatung",
+    "Antwort innerhalb von 24 Stunden",
+    "Transparente Preisgestaltung",
+    "Keine versteckten Kosten"
+  ]
+} = Astro.props;
+---
+
+<section id="kontakt" class="relative py-16 md:py-24 overflow-hidden bg-[#004d96] dark:bg-gray-900">
+  <div class="absolute inset-0 bg-gradient-to-br from-[#004d96] to-[#003b74] opacity-50 dark:from-gray-900 dark:to-primary-950"></div>
+  <div class="container relative">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
+      <!-- Left Column - Dynamic Content -->
+      <div class="flex flex-col h-full">
+        <!-- Default Content - Always Visible -->
+        <div id="defaultContent" class="h-full">
+          <CTAContent 
+            title={title}
+            description={description}
+            features={features}
+            class="h-full flex flex-col"
+          />
+        </div>
+        
+        <!-- SEO Tips (Initially Hidden) -->
+        <div id="seoTipsSection" class="hidden h-full">
+          <SeoTips />
+        </div>
+      </div>
+
+      <!-- Right Column - Contact Form -->
+      <div class="flex flex-col h-full">
+        <SimpleContactForm class="h-full flex flex-col" />
+      </div>
+    </div>
+  </div>
+</section>

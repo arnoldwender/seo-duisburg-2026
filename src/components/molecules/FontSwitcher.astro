@@ -1,0 +1,86 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<button
+  type="button"
+  id="fontFamilyToggle"
+  class="text-sm flex items-center gap-2 px-3 py-1.5 hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 rounded-lg relative group"
+  aria-pressed="false"
+  aria-label="Zwischen Standard- und Leseschrift wechseln"
+>
+  <Icon name="heroicons:document-text" class="w-4 h-4 mr-1" />
+  <span id="fontLabel" class="font-medium">Standardschrift</span>
+  <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-accent-400 transform scale-x-0 transition-transform origin-left group-hover:bg-accent-400/50" id="fontIndicator"></span>
+</button>
+
+<script>
+  class FontSwitcherManager {
+    private isSerif: boolean = false;
+
+    private readonly elements = {
+      html: document.documentElement,
+      fontLabel: document.getElementById('fontLabel'),
+      fontToggle: document.getElementById('fontFamilyToggle') as HTMLButtonElement,
+      fontIndicator: document.getElementById('fontIndicator') as HTMLElement
+    };
+
+    constructor() {
+      this.initializeEventListeners();
+      this.loadSavedPreference();
+    }
+
+    private announce(message: string): void {
+      const announcement = document.createElement('div');
+      announcement.setAttribute('role', 'status');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.className = 'sr-only';
+      announcement.textContent = message;
+      document.body.appendChild(announcement);
+      setTimeout(() => announcement.remove(), 1000);
+    }
+
+    private updateFontFamily(serif: boolean): void {
+      if (serif) {
+        this.elements.html.classList.remove('font-sans');
+        this.elements.html.classList.add('font-serif');
+      } else {
+        this.elements.html.classList.remove('font-serif');
+        this.elements.html.classList.add('font-sans');
+      }
+      
+      if (this.elements.fontLabel) {
+        this.elements.fontLabel.textContent = serif ? 'Leseschrift' : 'Standardschrift';
+      }
+      
+      if (this.elements.fontToggle) {
+        this.elements.fontToggle.setAttribute('aria-pressed', String(serif));
+      }
+      
+      if (this.elements.fontIndicator) {
+        this.elements.fontIndicator.style.transform = `scaleX(${serif ? 1 : 0})`;
+      }
+      
+      localStorage.setItem('fontFamily', serif ? 'serif' : 'sans-serif');
+      this.announce(`${serif ? 'Leseschrift' : 'Standardschrift'} wurde aktiviert`);
+    }
+
+    private initializeEventListeners(): void {
+      this.elements.fontToggle?.addEventListener('click', () => {
+        this.isSerif = !this.isSerif;
+        this.updateFontFamily(this.isSerif);
+      });
+    }
+
+    private loadSavedPreference(): void {
+      const savedFontFamily = localStorage.getItem('fontFamily');
+      this.isSerif = savedFontFamily === 'serif';
+      this.updateFontFamily(this.isSerif);
+    }
+  }
+
+  // Initialize font switcher when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    new FontSwitcherManager();
+  });
+</script>

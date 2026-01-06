@@ -1,0 +1,179 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from '../atoms/Logo.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const navigation = [
+  { name: 'Leistungen', href: '/#leistungen' },
+  { name: 'Über uns', href: '/ueber-uns/' },
+  { name: 'Referenzen', href: '/#referenzen' },
+  { name: 'Kontakt', href: '/kontakt/' },
+];
+---
+
+<div class:list={["md:hidden relative", className]}>
+  <button
+    type="button"
+    id="mobile-menu-button"
+    aria-controls="mobile-menu"
+    aria-expanded="false"
+    class="fixed top-5 right-4 z-[100] inline-flex items-center justify-center w-14 h-14 rounded-lg text-gray-700 dark:text-gray-300 bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900 backdrop-blur-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+  >
+    <span class="sr-only">Menü öffnen</span>
+    <Icon name="heroicons:bars-3" class="h-6 w-6" />
+  </button>
+
+  <aside
+    id="mobile-menu"
+    class="hidden fixed inset-0 z-[90] h-[100dvh] w-screen bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg overflow-y-auto overscroll-y-none transform translate-x-full transition-transform duration-300"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mobile-menu-title"
+  >
+    <div class="relative min-h-[100dvh] flex flex-col">
+      <!-- Close Button -->
+      <button
+        type="button"
+        id="mobile-menu-close"
+        aria-label="Menü schließen"
+        class="fixed top-5 right-4 z-[100] w-14 h-14 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 flex items-center justify-center backdrop-blur-sm transform hover:rotate-90 active:scale-95 opacity-0"
+      >
+        <Icon name="heroicons:x-mark" class="h-6 w-6" />
+      </button>
+
+      <!-- Menu Content -->
+      <div class="flex-1 container flex flex-col pt-28 pb-8">
+        <div class="mb-8">
+          <Logo variant="white" class="mx-auto" />
+        </div>
+
+        <nav class="flex-1" aria-labelledby="mobile-menu-title">
+          <h2 id="mobile-menu-title" class="sr-only">Hauptnavigation</h2>
+          <ul class="flex flex-col gap-2">
+            {navigation.map(({ name, href }) => (
+              <li>
+                <a
+                  href={href}
+                  class="block w-full px-6 py-4 text-2xl font-medium text-gray-900 dark:text-gray-100 hover:bg-white/10 dark:hover:bg-gray-800/50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 hover:translate-x-2 transform-gpu active:scale-[0.98] active:translate-x-3 backdrop-blur-sm"
+                >
+                  {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div class="mt-auto pb-safe">
+          <a
+            href="/kostenvoranschlag/"
+            class="block w-full px-8 py-4 text-xl text-center text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 hover:scale-[1.02] active:scale-[0.98] backdrop-blur-sm"
+          >
+            Erstberatung sichern
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  const button = document.getElementById('mobile-menu-button');
+  const closeButton = document.getElementById('mobile-menu-close');
+  const menu = document.getElementById('mobile-menu');
+  const html = document.documentElement;
+  let isMenuOpen = false;
+
+  function toggleMenu(open: boolean) {
+    isMenuOpen = open;
+    button?.setAttribute('aria-expanded', String(open));
+    const menuContent = menu?.querySelector('.flex-1.container');
+    
+    if (!menu) return;
+
+    if (open) {
+      menu.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        menu.classList.remove('translate-x-full');
+        closeButton?.classList.remove('opacity-0');
+      });
+      html.style.overflow = 'hidden';
+      html.style.touchAction = 'none';
+      html.style.position = 'fixed'; 
+      html.style.width = '100%'; 
+      html.style.height = '100dvh';
+    } else {
+      menu.classList.add('translate-x-full');
+      closeButton?.classList.add('opacity-0');
+      html.style.overflow = '';
+      html.style.touchAction = '';
+      html.style.position = '';
+      html.style.width = '';
+      html.style.height = '';
+      setTimeout(() => {
+        menu.classList.add('hidden');
+      }, 200);
+    }
+  }
+
+  // Touch handling
+  let startY = 0;
+  let currentY = 0;
+  let startTime = 0;
+  const VELOCITY_THRESHOLD = 0.5;
+  const DISTANCE_THRESHOLD = 100;
+
+  menu?.addEventListener('touchstart', (e) => {
+    startY = e.touches[0].clientY;
+    currentY = startY;
+    startTime = Date.now();
+  }, { passive: true });
+
+  menu?.addEventListener('touchmove', (e) => {
+    if (!isMenuOpen) return;
+    currentY = e.touches[0].clientY;
+    const diff = currentY - startY;
+    
+    if (diff > 0 && window.scrollY <= 0) {
+      e.preventDefault();
+      menu.style.transform = `translateY(${diff}px)`;
+    }
+  }, { passive: false });
+
+  menu?.addEventListener('touchend', () => {
+    const diff = currentY - startY;
+    const duration = Date.now() - startTime;
+    const velocity = diff / duration;
+
+    if (diff > DISTANCE_THRESHOLD || velocity > VELOCITY_THRESHOLD) {
+      toggleMenu(false);
+    } else {
+      menu.style.transform = '';
+    }
+    startY = 0;
+    currentY = 0;
+    startTime = 0;
+  });
+
+  // Event Listeners
+  button?.addEventListener('click', () => toggleMenu(!isMenuOpen));
+  closeButton?.addEventListener('click', () => toggleMenu(false));
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isMenuOpen) {
+      toggleMenu(false);
+    }
+  });
+
+  // Close on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768 && isMenuOpen) {
+      toggleMenu(false);
+    }
+  });
+</script>

@@ -1,0 +1,62 @@
+---
+import AccessibilityTools from './AccessibilityTools.astro';
+import ContactButton from './ContactButton.astro';
+
+const phone = "0151-4193-2856";
+---
+
+<div class="fixed top-0 left-0 right-0 z-50 bg-primary-900 text-white py-2 dark:bg-gray-950 transition-all duration-500 ease-in-out transform" id="topBar">
+  <div class="container">
+    <div class="flex flex-row justify-between items-center gap-2">
+      <ContactButton phone={phone} />
+      <AccessibilityTools />
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let lastScroll = 0;
+    let scrollTimeout: number;
+    const topBar = document.getElementById('topBar');
+    const header = document.querySelector('header');
+    const scrollThreshold = 100;
+    
+    const handleScroll = () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll <= scrollThreshold) {
+        topBar?.classList.remove('-translate-y-full');
+        header?.classList.remove('-translate-y-full');
+        topBar?.classList.remove('opacity-80');
+        return;
+      }
+      
+      const isScrollingDown = currentScroll > lastScroll;
+      const isTopBarVisible = !topBar?.classList.contains('-translate-y-full');
+      
+      if (isScrollingDown && isTopBarVisible) {
+        topBar?.classList.add('-translate-y-full');
+        setTimeout(() => {
+          header?.classList.add('-translate-y-full');
+        }, 100);
+      } else if (!isScrollingDown && !isTopBarVisible) {
+        header?.classList.remove('-translate-y-full');
+        topBar?.classList.remove('-translate-y-full');
+        topBar?.classList.add('opacity-80');
+      }
+      
+      lastScroll = currentScroll;
+    };
+    
+    // Throttled scroll handler
+    window.addEventListener('scroll', () => {
+      if (!scrollTimeout) {
+        scrollTimeout = window.requestAnimationFrame(() => {
+          handleScroll();
+          scrollTimeout = 0;
+        });
+      }
+    }, { passive: true });
+  });
+</script>

@@ -9,14 +9,14 @@ const { class: className, variant = 'default' } = Astro.props;
 // Raster logo assets with multiple formats for optimal delivery
 const logo = {
   light: {
-    avif: "/images/logo-seo-halle.avif",
-    webp: "/images/logo-seo-halle.webp",
-    png: "/images/logo-seo-halle.png",
+    avif: "/images/logo-seo-duisburg.avif",
+    webp: "/images/logo-seo-duisburg.webp",
+    png: "/images/logo-seo-duisburg.png",
   },
   dark: {
-    avif: "/images/logo-seo-halle-weiss.avif",
-    webp: "/images/logo-seo-halle-weiss.webp",
-    png: "/images/logo-seo-halle-weiss.png",
+    avif: "/images/logo-seo-duisburg-weiss.avif",
+    webp: "/images/logo-seo-duisburg-weiss.webp",
+    png: "/images/logo-seo-duisburg-weiss.png",
   }
 };
 ---
@@ -27,7 +27,7 @@ const logo = {
     "block transition-opacity duration-200 hover:opacity-90",
     className
   ]} 
-  aria-label="SEO Halle"
+  aria-label="SEO Duisburg"
 >
   {variant === 'default' ? (
     <>
@@ -37,8 +37,8 @@ const logo = {
         <source srcset={logo.light.webp} type="image/webp" />
         <img
           src={logo.light.png}
-          alt="SEO Halle Logo"
-          title="SEO Halle - Ihre SEO Agentur in Halle"
+          alt="SEO Duisburg Logo"
+          title="SEO Duisburg - Ihre SEO Agentur in Halle"
           class="h-14 w-auto"
           width="150"
           height="50"
@@ -53,8 +53,8 @@ const logo = {
         <source srcset={logo.dark.webp} type="image/webp" />
         <img
           src={logo.dark.png}
-          alt="SEO Halle Logo"
-          title="SEO Halle - Ihre SEO Agentur in Halle"
+          alt="SEO Duisburg Logo"
+          title="SEO Duisburg - Ihre SEO Agentur in Halle"
           class="h-14 w-auto"
           width="150"
           height="50"
@@ -69,8 +69,8 @@ const logo = {
       <source srcset={logo.dark.webp} type="image/webp" />
       <img
         src={logo.dark.png}
-        alt="SEO Halle Logo"
-        title="SEO Halle - Ihre SEO Agentur in Halle"
+        alt="SEO Duisburg Logo"
+        title="SEO Duisburg - Ihre SEO Agentur in Halle"
         class="h-12 w-auto"
         width="150"
         height="50"

@@ -1,25 +1,40 @@
 ---
 // LocalBusiness JSON-LD for site-wide usage
+// Note: Physical address remains Wender Media HQ in Halle, service area is Duisburg/Ruhrgebiet
 const businessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "SEO-Halle",
-  "image": "https://seo-halle.de/images/logo-seo-halle.avif",
-  "logo": "https://seo-halle.de/images/logo-seo-halle.avif",
-  "description": "SEO Agentur in Halle (Saale) - Professionelle Suchmaschinenoptimierung mit über 17 Jahren Erfahrung",
+  "name": "SEO-Duisburg | Wender Media",
+  "image": "https://seo-duisburg.de/images/logo-seo-duisburg.avif",
+  "logo": "https://seo-duisburg.de/images/logo-seo-duisburg.avif",
+  "description": "SEO Agentur für Duisburg & Ruhrgebiet - Professionelle Suchmaschinenoptimierung mit über 18 Jahren Erfahrung. Remote-Service von Wender Media.",
   "address": {
     "@type": "PostalAddress",
-  "streetAddress": "Franckestraße 3a",
+    "streetAddress": "Franckestraße 3a",
     "addressLocality": "Halle (Saale)",
     "postalCode": "06110",
     "addressCountry": "DE"
   },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Duisburg",
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Nordrhein-Westfalen"
+      }
+    },
+    {
+      "@type": "Place",
+      "name": "Ruhrgebiet"
+    }
+  ],
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 51.4825,
-    "longitude": 11.9705
+    "latitude": 51.4344,
+    "longitude": 6.7623
   },
-  "url": "https://seo-halle.de",
+  "url": "https://seo-duisburg.de",
   "telephone": "+4915141932856",
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
@@ -35,9 +50,10 @@ const businessSchema = {
   },
   "priceRange": "€€€",
   "sameAs": [
-    "https://www.facebook.com/seohalle",
-    "https://twitter.com/seohalle",
-    "https://www.linkedin.com/company/seo-halle"
+    "https://www.facebook.com/seoduisburg",
+    "https://twitter.com/seoduisburg",
+    "https://www.linkedin.com/company/seo-duisburg",
+    "https://wender.media"
   ]
 };
 ---

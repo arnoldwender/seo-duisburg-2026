@@ -4,7 +4,7 @@
 
 SEO Duisburg Website - SEO services for Duisburg & Ruhrgebiet region
 
-**Live Site**: https://seo-duisburg.de
+**Live Site**: https://seo-duisburg.com
 
 ## Technology Stack
 
@@ -67,7 +67,7 @@ npm run build
 
 ## Important Notes
 
-- The live site is hosted at https://seo-duisburg.de
+- The live site is hosted at https://seo-duisburg.com
 - This is a remote service site - physical office is at Wender Media HQ in Halle (Saale)
 - Service area: Duisburg, Ruhrgebiet, Nordrhein-Westfalen
 

@@ -7,7 +7,7 @@ import robotsTxt from 'astro-robots-txt';
 import icon from "astro-icon";
 
 export default defineConfig({
-  site: 'https://seo-duisburg.de',
+  site: 'https://seo-duisburg.com',
   trailingSlash: 'always',
   integrations: [
     tailwind(),
@@ -31,7 +31,7 @@ export default defineConfig({
         }
       ],
       sitemap: true,
-      host: 'seo-duisburg.de'
+      host: 'seo-duisburg.com'
     }),
     icon()
   ],
@@ -72,7 +72,7 @@ export default defineConfig({
       },
       {
         protocol: 'https',
-        hostname: 'seo-duisburg.de'
+        hostname: 'seo-duisburg.com'
       }
     ]
   }

@@ -84,7 +84,7 @@ seo-duisburg-2026/
 
 ## Website
 
-- **Production**: [https://seo-duisburg.de](https://seo-duisburg.de)
+- **Production**: [https://seo-duisburg.com](https://seo-duisburg.com)
 
 ## Configuration
 

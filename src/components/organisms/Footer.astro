@@ -7,7 +7,7 @@ const navigation = {
     { name: 'Über uns', href: '/ueber-uns/' },
     { name: 'Zahlungsoptionen', href: '/zahlungsoptionen/' },
     { name: 'Kostenvoranschlag', href: '/kostenvoranschlag/' },
-    { name: 'SEO Blog', href: 'https://seo-halle.de/blog/' },
+    { name: 'SEO Blog', href: 'https://seo-duisburg.de/blog/' },
     { name: 'Öffnungszeiten', href: '/oeffnungszeiten/' },
     { name: 'Standort', href: '/standort/' },
     { name: 'Sitemap', href: '/sitemap/' },
@@ -20,9 +20,9 @@ const navigation = {
     { name: 'AV-Vertrag', href: '/av-vertrag/' },
   ],
   social: [
-    { name: 'Facebook', href: 'https://www.facebook.com/seohalle', icon: 'simple-icons:facebook' },
-    { name: 'Twitter', href: 'https://twitter.com/seohalle', icon: 'simple-icons:twitter' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/seo-halle', icon: 'simple-icons:linkedin' },
+    { name: 'Facebook', href: 'https://www.facebook.com/seoduisburg', icon: 'simple-icons:facebook' },
+    { name: 'Twitter', href: 'https://twitter.com/seoduisburg', icon: 'simple-icons:twitter' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/seo-duisburg', icon: 'simple-icons:linkedin' },
   ]
 };
 
@@ -35,7 +35,7 @@ const contact = {
     landline: '0345-6867-6857',
     fax: '0345-6867-6859'
   },
-  email: 'info@seo-halle.de',
+  email: 'info@seo-duisburg.de',
   hours: 'MO-FR | 09:00 - 15:00 Uhr',
   languages: ['Deutsch', 'Spanisch', 'Englisch'],
   payment: ['Rechnung', 'PayPal', 'Kreditkarten (PayPal)', 'Finanzierung']
@@ -44,14 +44,14 @@ const contact = {
 
 <footer class="relative overflow-hidden bg-[#002242]">
   <div class="absolute inset-0 bg-gradient-to-br from-[#002242] to-[#003c74] opacity-50"></div>
-  
+
   <div class="container relative pt-16 pb-16">
     <div class="grid grid-cols-1 gap-8 xl:grid-cols-4 opacity-0 translate-y-8 transition-all duration-700" data-reveal>
       <!-- Company Info -->
       <div class="xl:col-span-1 group">
         <Logo variant="white" class="h-12 w-auto brightness-80 mb-6" />
         <p class="text-gray-300 mb-6">
-          SEO Agentur aus Halle (Saale). Ich optimiere Webseiten und Online-Shops und biete SEO-Webdesign für jedes Budget.
+          SEO Agentur für Duisburg & Ruhrgebiet. Wir optimieren Webseiten und Online-Shops und bieten SEO-Webdesign für jedes Budget.
         </p>
         <div class="flex space-x-4">
           {navigation.social.map((item) => (
@@ -139,8 +139,8 @@ const contact = {
         </div>
         <div class="flex justify-start md:justify-end space-x-6">
           {navigation.legal.map((item) => (
-            <a 
-              href={item.href} 
+            <a
+              href={item.href}
               class="text-sm text-gray-400 hover:text-primary-400 transition-colors duration-300 group inline-flex items-center"
             >
               <span class="relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary-400 after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 group-hover:after:scale-x-100">
